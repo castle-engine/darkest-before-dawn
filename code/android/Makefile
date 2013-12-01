@@ -1,6 +1,6 @@
 .PHONY: default
 default: data
-	cd ../../castle_game_engine/ && ppcrossarm -Tandroid -CfVFPV3 -dRELEASE $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../code/darkest_before_dawn.lpr
+	cd ../../../castle_game_engine/ && ppcrossarm -Tandroid -CfVFPV3 -dRELEASE $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../darkest_before_dawn/code/darkest_before_dawn.lpr
 	mkdir -p libs/armeabi/
 	cp -f ../libdarkest_before_dawn.so libs/armeabi/libdarkest_before_dawn.so
 	ant debug
