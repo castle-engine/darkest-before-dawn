@@ -1,0 +1,114 @@
+#X3D V3.2 utf8
+PROFILE Interactive
+
+DirectionalLight {
+  direction -0.5 -1 0.5
+  ambientIntensity 1
+  intensity 1
+}
+
+Group {
+  children [
+    DEF BrightnessEffect Effect {
+      language "GLSL"
+      inputOutput SFFloat distance_factor 0.0
+      parts EffectPart {
+        type "FRAGMENT"
+        url "data:text/plain,
+    uniform float distance_factor;
+    #define FULL_BLACK_SCALING 0.5
+    void PLUG_texture_apply(inout vec4 fragment_color, const in vec3 normal)
+    {
+      fragment_color.gb = fragment_color.gb *
+        mix(1.0, FULL_BLACK_SCALING, distance_factor);
+      /* When distance_factor = 0, red is visible as usual.
+         When distance_factor = 1, red is contrasting:
+         smaller red is less visible, larger red is more visble. */
+      fragment_color.r = mix(fragment_color.r,
+        (fragment_color.r - 0.25) * 3.0, distance_factor);
+    }"
+      }
+    }
+
+    Inline { url "stages/street/main.x3d" }
+    Inline { url "stages/tube/main.x3d" }
+    Inline { url "stages/outdoors/main.x3d" }
+    Inline { url "stages/above/main.x3d" }
+  ]
+}
+
+# outside of BrightnessEffect, otherwise tree is reddish
+Inline { url "stages/tree/main.x3d" }
+
+# collider, not displayed, only for collisions, to prevent falling off the level
+Collision {
+  proxy Inline { url "collider.x3d" }
+}
+
+
+NavigationInfo {
+  headlight TRUE
+  type "WALK"
+  avatarSize [ 0.5, 1.5 ]
+  speed 10
+}
+
+Background {
+  backUrl "sky/sky_back.png"
+  bottomUrl "sky/sky_bottom.png"
+  frontUrl "sky/sky_front.png"
+  leftUrl "sky/sky_left.png"
+  rightUrl "sky/sky_right.png"
+  topUrl "sky/sky_top.png"
+  effects DEF BackgroundEffect Effect {
+    language "GLSL"
+    inputOutput SFFloat morning 0.0
+    parts EffectPart {
+      type "FRAGMENT"
+      url "data:text/plain,
+uniform float morning;
+void PLUG_texture_apply(inout vec4 fragment_color, const in vec3 normal)
+{
+  fragment_color.rgb *= mix(vec3(1.0), vec3(1.5, 1.5, 3.0), morning);
+}"
+    }
+  }
+}
+
+# Camera settings "encoded" in the VRML/X3D declaration below :
+# direction 0.0025958011392503977 -4.520011920305933E-9 1.0000654458999634
+# up 0.00034526491072028875 1 -9.4011500095803058E-7
+# gravityUp 0 1 0
+Viewpoint {
+  position -3.8214540481567383 -7.4765372276306152 -69.937416076660156
+  orientation -1.7412781971870572E-6 -1 0 3.1390089988708496
+}
+
+# for stage: street
+# # Camera settings "encoded" in the VRML/X3D declaration below :
+# # direction -0.248241126537323 -1.5085284410520927E-10 0.96869754791259766
+# # up 0.00033447297755628824 0.99999994039535522 0.000085668129031546414
+# # gravityUp 0 1 0
+# Viewpoint {
+#   position -1.2800345420837402 3.0539114475250244 6.8226556777954102
+#   orientation 0.00017263289191760123 0.99999994039535522 0.000021768077203887515 2.8907284736633301
+# }
+
+# for stage: above
+# Camera settings "encoded" in the VRML/X3D declaration below :
+# direction 0.95207637548446655 -0.24245671927928925 -0.18646033108234406
+# up 0.13493846356868744 0.88004052639007568 -0.4553244411945343
+# gravityUp 0 1 0
+# Viewpoint {
+#   position -2.0467092990875244 23.517522811889648 144.66523742675781
+# }
+
+# for stage: tree
+# Camera settings "encoded" in the VRML/X3D declaration below :
+# direction -0.069902747869491577 -0.53284907341003418 0.84331637620925903
+# up 0.0060852919705212116 0.8451424241065979 0.53450626134872437
+# gravityUp 0 1 0
+# Viewpoint {
+#   position -2.0453848838806152 29.731191635131836 185.68063354492188
+# }
+

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<resource
+  name="Golem"
+  type="WalkAttack"
+
+  move_speed="2.0"
+  knockback_speed="35"
+  default_max_life="100.0"
+  middle_height="0.8"
+  preferred_distance="4.0"
+  receive_shadow_volumes="False"
+  radius="1.0"
+>
+  <model>
+    <idle url="anims/idle.kanim"/>
+    <walk url="anims/walk.kanim"/>
+    <attack url="anims/attack.kanim"/>
+    <die url="anims/die.kanim"/>
+    <hurt url="anims/hurt.kanim"/>
+  </model>
+  <run_away life="0.1"/>
+  <visibility angle="7"/>
+  <attack
+    time="0.3"
+    knockback_distance="6.0"
+    max_distance="4.0"
+    max_angle="1.04"
+  >
+    <damage const="10" random="5"/>
+  </attack>
+</resource>

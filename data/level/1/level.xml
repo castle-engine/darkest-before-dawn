@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<level
+  name="1"
+  scene="level1_final.x3dv"
+  title="1"
+  number="1"
+  type="Level1"
+  placeholders="blender"
+  loading_image="../../ui/loading.png"
+>
+  <prepare_resources>
+    <resource name="Harpy" />
+    <!-- <resource name="Golem" /> -->
+  </prepare_resources>
+</level>

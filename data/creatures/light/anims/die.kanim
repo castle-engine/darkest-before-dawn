@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<animation>
+  <frame url="die_0000.x3d.gz" time="0.000000" />
+  <frame url="die_0005.x3d.gz" time="0.200000" />
+  <frame url="die_0010.x3d.gz" time="0.400000" />
+  <frame url="die_0015.x3d.gz" time="0.600000" />
+  <frame url="die_0020.x3d.gz" time="0.800000" />
+  <frame url="die_0025.x3d.gz" time="1.000000" />
+  <frame url="die_0030.x3d.gz" time="1.200000" />
+  <frame url="die_0031.x3d.gz" time="1.240000" />
+</animation>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<animation>
+  <frame url="attack_0000.x3d.gz" time="0.000000" />
+  <frame url="attack_0005.x3d.gz" time="0.200000" />
+  <frame url="attack_0010.x3d.gz" time="0.400000" />
+  <frame url="attack_0015.x3d.gz" time="0.600000" />
+  <frame url="attack_0020.x3d.gz" time="0.800000" />
+  <frame url="attack_0025.x3d.gz" time="1.000000" />
+  <frame url="attack_0030.x3d.gz" time="1.200000" />
+  <frame url="attack_0035.x3d.gz" time="1.400000" />
+  <frame url="attack_0040.x3d.gz" time="1.600000" />
+</animation>

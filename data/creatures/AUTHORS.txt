@@ -1,0 +1,11 @@
+http://opengameart.org/content/thin-zombie-awake-zombie-asset
+CC-BY 3.0
+
+http://opengameart.org/content/fireicestone-golem
+CC-BY 3.0
+CC-BY-SA 3.0
+
+creatures/light/undead1/
+from http://opengameart.org/content/seamless-texturebrush-pack-undead1
+Michalis remade some textures to make more contrast
+CC0
