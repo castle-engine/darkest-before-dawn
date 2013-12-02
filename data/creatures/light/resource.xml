@@ -16,8 +16,13 @@
     <idle url="anims/idle.kanim"/>
     <walk url="anims/run.kanim"/>
     <attack url="anims/attack.kanim"/>
-    <die url="anims/die.kanim"/>
-    <hurt url="anims/hurt.kanim"/>
+    <!-- <die url="anims/die.kanim"/> -->
+    <!-- <hurt url="anims/hurt.kanim"/> -->
+    <!-- Creature cannot really die or be hurt right now.
+         So, instead of loading full die/hurt animation, load just 1 easy frame
+	 and conserve memory. -->
+    <die url="anims/die_0031.x3d.gz"/>
+    <hurt url="anims/die_0031.x3d.gz"/>
   </model>
   <run_away life="0.1"/>
   <visibility angle="7"/>
