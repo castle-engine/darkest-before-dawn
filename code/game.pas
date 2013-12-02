@@ -68,9 +68,12 @@ begin
 
   R := Rectangle(UIMargin, UIMargin, 40, 100);
   DrawRectangle(R.Grow(2), Vector4Single(1.0, 0.5, 0.5, 0.2));
-  R.Height := Clamped(Round(
-    MapRange(Player.Life, 0, Player.MaxLife, 0, R.Height)), 0, R.Height);
-  DrawRectangle(R, Vector4Single(1, 0, 0, 0.9));
+  if not Player.Dead then
+  begin
+    R.Height := Clamped(Round(
+      MapRange(Player.Life, 0, Player.MaxLife, 0, R.Height)), 0, R.Height);
+    DrawRectangle(R, Vector4Single(1, 0, 0, 0.9));
+  end;
 end;
 
 var
