@@ -7,7 +7,8 @@ standalone:
 
 .PHONY: clean
 clean:
-	rm -f darkest_before_dawn_standalone code/libdarkest_before_dawn.so
+	rm -f darkest_before_dawn_standalone darkest_before_dawn_standalone.exe \
+	  code/libdarkest_before_dawn.so
 	find data/ -iname '*~' -exec rm -f '{}' ';'
 	$(MAKE) -C ../castle_game_engine/ clean
 	$(MAKE) -C code/android clean
