@@ -168,6 +168,14 @@ begin
     [Window.Fps.FrameTime, Window.Fps.RealTime]);
 end;
 
+const
+  AliveTouchInterface = etciCtlWalkDragRotate;
+    { etciNone;
+      For this game, etciNone is too troublesome, as you often mistakenly
+      do walk/rotate when you want to do only the other thing.
+      It's important here, as accidental movement moves you away from light,
+      which has (deadly) gameplay consequences :) }
+
 procedure GameRestart;
 var
   Walk: TWalkCamera;
@@ -187,12 +195,7 @@ begin
   // Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
   // Window.MainScene.ProcessEvents := true;
 
-  Window.TouchInterface := etciCtlWalkDragRotate;
-    { etciNone;
-      For this game, etciNone is too troublesome, as you often mistakenly
-      do walk/rotate when you want to do only the other thing.
-      It's important here, as accidental movement moves you away from light,
-      which has (deadly) gameplay consequences :) }
+  Window.TouchInterface := AliveTouchInterface;
 
   { SceneManager.LoadLevel always initializes Camera, always to TWalkCamera }
   Walk := SceneManager.Camera as TWalkCamera;
@@ -236,8 +239,12 @@ begin
   GoingUp := false;
 
   if not Player.Dead then
+  begin
+    Window.TouchInterface := AliveTouchInterface;
     Player.Life := Min(Player.MaxLife,
       Player.Life + Window.Fps.UpdateSecondsPassed * RegenerateSpeed);
+  end else
+    Window.TouchInterface := etciNone;
 end;
 
 function MyGetApplicationName: string;
