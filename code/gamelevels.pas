@@ -24,24 +24,24 @@ uses Classes, CastleLevels, Castle3D, CastleScene, DOM, FGL, CastleShapes,
 type
   TLevel1 = class(TLevelLogic)
   strict private
-  type
-    TElevator = class
-    strict private
-      Moving: T3DLinearMoving;
-      Scene: TCastleScene;
-    public
-      constructor Create(const Name: string; const World: T3DWorld;
-        const Owner: TLevel1; const Height: Single);
-      procedure Update;
-    end;
+    type
+      TElevator = class
+      strict private
+        Moving: T3DLinearMoving;
+        Scene: TCastleScene;
+      public
+        constructor Create(const Name: string; const World: T3DWorld;
+          const Owner: TLevel1; const Height: Single);
+        procedure Update;
+      end;
+      TElevatorList = specialize TFPGObjectList<TElevator>;
 
-    TElevatorList = specialize TFPGObjectList<TElevator>;
-  var
-    Elevators: TElevatorList;
-    Lights: TVector3SingleList;
-    BrightnessEffect, BackgroundEffect: TEffectNode;
-    MorningEmpty, MorningFull: TVector3Single;
-    GameWinBox: TBox3D;
+    var
+      Elevators: TElevatorList;
+      Lights: TVector3SingleList;
+      BrightnessEffect, BackgroundEffect: TEffectNode;
+      MorningEmpty, MorningFull: TVector3Single;
+      GameWinBox: TBox3D;
   public
     constructor Create(AOwner: TComponent; AWorld: T3DWorld;
       MainScene: TCastleScene; DOMElement: TDOMElement); override;
@@ -53,7 +53,7 @@ type
 
 implementation
 
-uses SysUtils, CastleFilesUtils, Game, CastleStringUtils, CastleWarnings,
+uses SysUtils, CastleFilesUtils, GamePlay, CastleStringUtils, CastleWarnings,
   X3DFields, CastleUtils;
 
 { TLevel1.TElevator ---------------------------------------------------------- }
