@@ -164,7 +164,7 @@ var
   CurrentBottom, OptionsHeight: Integer;
   QB: TQualityButton;
 begin
-  OptionsHeight := QualityTitle.Rect.Height + Margin;
+  OptionsHeight := QualityTitle.Rect.Height + Margin * 3;
   for QB in TQualityButton.Buttons do
     OptionsHeight += QB.Rect.Height + Margin;
   OptionsHeight += PlayButton.Rect.Height;
@@ -176,7 +176,7 @@ begin
   PlayButton.Bottom := CurrentBottom;
 
   QualityTitle.CenterHorizontal;
-  CurrentBottom -= QualityTitle.Rect.Height + Margin;
+  CurrentBottom -= QualityTitle.Rect.Height + Margin * 3;
   QualityTitle.Bottom := CurrentBottom;
 
   for QB in TQualityButton.Buttons do
