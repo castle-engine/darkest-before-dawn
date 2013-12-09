@@ -54,7 +54,7 @@ type
 implementation
 
 uses SysUtils, CastleFilesUtils, GamePlay, CastleStringUtils, CastleWarnings,
-  X3DFields, CastleUtils;
+  X3DFields, CastleUtils, GameOptions;
 
 { TLevel1.TElevator ---------------------------------------------------------- }
 
@@ -120,6 +120,8 @@ constructor TLevel1.Create(AOwner: TComponent; AWorld: T3DWorld;
         [EffectNodeName, UniformName]));
   end;
 
+var
+  GammaVal: Single;
 begin
   inherited;
   Elevators := TElevatorList.Create(true);
@@ -135,6 +137,16 @@ begin
 
   BrightnessEffect := FindEffectNode('BrightnessEffect', DistanceFactorUniform);
   BackgroundEffect := FindEffectNode('BackgroundEffect', MorningUniform);
+
+  case Gamma of
+    gDarkest  : GammaVal := 1.0;
+    gAverage  : GammaVal := 1.3;
+    gBrightest: GammaVal := 1.6;
+    else raise EInternalError.Create('Gamma??');
+  end;
+
+  (BrightnessEffect.Fields.ByName['inv_gamma'] as TSFFloat).
+    Send(1 / GammaVal);
 end;
 
 destructor TLevel1.Destroy;

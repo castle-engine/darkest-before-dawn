@@ -38,13 +38,15 @@ type
 
 function Quality: TQuality;
 
+type
+  TGamma = (gDarkest, gAverage, gBrightest);
+
+function Gamma: TGamma;
+
 implementation
 
 uses SysUtils, Classes, CastleControls, CastleUIControls, CastleImages,
   CastleFilesUtils, Game;
-
-type
-  TGamma = (gDarkest, gMiddle, gBrightest);
 
 { Play button ---------------------------------------------------------------- }
 
@@ -102,16 +104,58 @@ begin
     B.Pressed := B = Self;
 end;
 
+{ Gamma -------------------------------------------------------------------- }
+
+const
+  GammaNames: array [TGamma] of string = ('darkest', 'average', 'brightest');
+
+var
+  FGamma: TGamma = gDarkest;
+
+function Gamma: TGamma;
+begin
+  Result := FGamma;
+end;
+
+type
+  TGammaButton = class(TCastleButton)
+  public
+    class var
+      Buttons: array [TGamma] of TGammaButton;
+    var
+      Value: TGamma;
+
+    constructor Create(AOwner: TComponent); override;
+    procedure DoClick; override;
+  end;
+
+constructor TGammaButton.Create(AOwner: TComponent);
+begin
+  inherited;
+  Toggle := true;
+end;
+
+procedure TGammaButton.DoClick;
+var
+  B: TGammaButton;
+begin
+  FGamma := Value;
+  for B in Buttons do
+    B.Pressed := B = Self;
+end;
+
 { Options globals ------------------------------------------------------------ }
 
 var
   OptionsControls: TUIControlList;
-  QualityTitle: TCastleImageControl;
+  QualityTitle, GammaTitle: TCastleImageControl;
 
 procedure OptionsInitialize(Window: TCastleWindow);
 var
   Q: TQuality;
   QB: TQualityButton;
+  G: TGamma;
+  GB: TGammaButton;
   Background: TCastleImageControl;
 begin
   OptionsControls := TUIControlList.Create(false);
@@ -123,16 +167,16 @@ begin
   Window.Controls.InsertFront(Background);
   OptionsControls.Add(Background);
 
-  QualityTitle := TCastleImageControl.Create(Application);
-  QualityTitle.URL := ApplicationData('ui/quality_title.png');
-  Window.Controls.InsertFront(QualityTitle);
-  OptionsControls.Add(QualityTitle);
-
   PlayButton := TPlayButton.Create(Application);
   PlayButton.Image := LoadImage(ApplicationData('ui/play.png'));
   PlayButton.OwnsImage := true;
   Window.Controls.InsertFront(PlayButton);
   OptionsControls.Add(PlayButton);
+
+  QualityTitle := TCastleImageControl.Create(Application);
+  QualityTitle.URL := ApplicationData('ui/quality_title.png');
+  Window.Controls.InsertFront(QualityTitle);
+  OptionsControls.Add(QualityTitle);
 
   for Q in TQuality do
   begin
@@ -146,6 +190,25 @@ begin
     Window.Controls.InsertFront(QB);
     TQualityButton.Buttons[Q] := QB;
     OptionsControls.Add(QB);
+  end;
+
+  GammaTitle := TCastleImageControl.Create(Application);
+  GammaTitle.URL := ApplicationData('ui/gamma_title.png');
+  Window.Controls.InsertFront(GammaTitle);
+  OptionsControls.Add(GammaTitle);
+
+  for G in TGamma do
+  begin
+    GB := TGammaButton.Create(Application);
+    GB.Value := G;
+    GB.Pressed := G = Gamma;
+    GB.Image := LoadImage(ApplicationData('ui/gamma_' + GammaNames[G] + '.png'));
+    GB.OwnsImage := true;
+    GB.ImageMargin := 0;
+
+    Window.Controls.InsertFront(GB);
+    TGammaButton.Buttons[G] := GB;
+    OptionsControls.Add(GB);
   end;
 end;
 
@@ -161,29 +224,52 @@ procedure OptionsResize(Window: TCastleWindow);
 const
   Margin = 8;
 var
-  CurrentBottom, OptionsHeight: Integer;
+  CurrentBottom, OptionsHeight, QualityBottom, QualityLeft,
+    GammaBottom, GammaLeft, OptionsWidth: Integer;
   QB: TQualityButton;
+  GB: TGammaButton;
 begin
-  OptionsHeight := QualityTitle.Rect.Height + Margin * 3;
+  OptionsHeight := QualityTitle.Rect.Height + Margin * 2;
   for QB in TQualityButton.Buttons do
     OptionsHeight += QB.Rect.Height + Margin;
   OptionsHeight += PlayButton.Rect.Height;
 
   CurrentBottom := (Window.Height + OptionsHeight) div 2;
 
-  PlayButton.CenterHorizontal;
+  OptionsWidth :=
+    TQualityButton.Buttons[qAverage].Rect.Width + Margin * 2 +
+    TGammaButton.Buttons[gAverage].Rect.Width;
+  QualityLeft := (Window.Width - OptionsWidth) div 2;
+  GammaLeft := QualityLeft + TQualityButton.Buttons[qAverage].Rect.Width + Margin * 2;
+
   CurrentBottom -= PlayButton.Rect.Height;
   PlayButton.Bottom := CurrentBottom;
+  PlayButton.CenterHorizontal;
 
-  QualityTitle.CenterHorizontal;
-  CurrentBottom -= QualityTitle.Rect.Height + Margin * 3;
-  QualityTitle.Bottom := CurrentBottom;
+  QualityBottom := CurrentBottom;
+  QualityBottom -= QualityTitle.Rect.Height + Margin * 3;
+  QualityTitle.Bottom := QualityBottom;
+  QualityTitle.Left := QualityLeft;
+  QualityBottom += Margin; // smaller margin from 1st button
 
   for QB in TQualityButton.Buttons do
   begin
-    QB.CenterHorizontal;
-    CurrentBottom -= QB.Rect.Height + Margin;
-    QB.Bottom := CurrentBottom;
+    QualityBottom -= QB.Rect.Height + Margin;
+    QB.Bottom := QualityBottom;
+    QB.Left := QualityLeft;
+  end;
+
+  GammaBottom := CurrentBottom;
+  GammaBottom -= GammaTitle.Rect.Height + Margin * 3;
+  GammaTitle.Bottom := GammaBottom;
+  GammaTitle.Left := GammaLeft;
+  GammaBottom += Margin; // smaller margin from 1st button
+
+  for GB in TGammaButton.Buttons do
+  begin
+    GammaBottom -= GB.Rect.Height + Margin;
+    GB.Bottom := GammaBottom;
+    GB.Left := GammaLeft;
   end;
 end;
 

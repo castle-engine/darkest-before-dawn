@@ -12,13 +12,20 @@ Group {
     DEF BrightnessEffect Effect {
       language "GLSL"
       inputOutput SFFloat distance_factor 0.0
+      inputOutput SFFloat inv_gamma 1.0
       parts EffectPart {
         type "FRAGMENT"
         url "data:text/plain,
     uniform float distance_factor;
+    uniform float inv_gamma;
+
     #define FULL_BLACK_SCALING 0.5
     void PLUG_texture_apply(inout vec4 fragment_color, const in vec3 normal)
     {
+      /* do gamma correction *before* darkening, otherwise the results may be
+         wild for very dark pixels on OpenGL ES */
+      fragment_color.rgb = pow(fragment_color.rgb, vec3(inv_gamma));
+
       fragment_color.gb = fragment_color.gb *
         mix(1.0, FULL_BLACK_SCALING, distance_factor);
       /* When distance_factor = 0, red is visible as usual.
