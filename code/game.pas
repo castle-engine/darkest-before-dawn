@@ -42,8 +42,14 @@ begin
   {$endif}
 
   { adjust theme }
-  Theme.Images[tiProgressFill] := LoadImage(ApplicationData('ui/progress_fill.png'));
+  Theme.Images[tiProgressFill] := LoadImage(ApplicationData('ui/theme/ProgressFill.png'));
   Theme.OwnsImages[tiProgressFill] := true;
+  Theme.Images[tiButtonPressed] := LoadImage(ApplicationData('ui/theme/ButtonPressed.png'));
+  Theme.OwnsImages[tiButtonPressed] := true;
+  Theme.Images[tiButtonFocused] := LoadImage(ApplicationData('ui/theme/ButtonFocused.png'));
+  Theme.OwnsImages[tiButtonFocused] := true;
+  Theme.Images[tiButtonNormal] := LoadImage(ApplicationData('ui/theme/ButtonNormal.png'));
+  Theme.OwnsImages[tiButtonNormal] := true;
 
   { create 2D and 3D stuff for game and for options screen }
   PlayInitialize(Window);
