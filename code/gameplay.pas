@@ -101,9 +101,6 @@ type
 
 procedure TRestartButton.DoClick;
 begin
-  { simple method, to test whether close+open of context works Ok.
-  Window.Close(false);
-  Window.Open; }
   Start(true);
 end;
 
@@ -225,11 +222,8 @@ end;
 
 procedure PlayResize(Window: TCastleWindowTouch);
 begin
-  RestartButton.Left := (Window.Width - RestartButton.Width) div 2;
-  RestartButton.Bottom := (Window.Height - RestartButton.Height) div 2;
-
-  GoingUpImage.Left := (Window.Width - GoingUpImage.Width) div 2;
-  GoingUpImage.Bottom := (Window.Height - GoingUpImage.Height) div 2;
+  RestartButton.Center;
+  GoingUpImage.Center;
 end;
 
 procedure PlayUpdate(Window: TCastleWindowTouch);

@@ -29,7 +29,7 @@ implementation
 
 uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
   CastleControls, CastlePrecalculatedAnimation, CastleGLImages,
-  CastleImages, CastleFilesUtils,
+  CastleImages, CastleFilesUtils, CastleKeysMouse,
   GameOptions, GamePlay;
 
 { routines ------------------------------------------------------------------- }
@@ -98,6 +98,16 @@ begin
   end;
 end;
 
+procedure WindowPress(Window: TCastleWindowBase; const Event: TInputPressRelease);
+begin
+  if Event.IsKey(K_F5) then
+  begin
+   { test whether close+open of context works Ok. }
+    Window.Close(false);
+    Window.Open;
+  end;
+end;
+
 function MyGetApplicationName: string;
 begin
   Result := 'darkest_before_dawn';
@@ -119,4 +129,5 @@ initialization
   Window.OnClose := @WindowClose;
   Window.OnResize := @WindowResize;
   Window.OnUpdate := @WindowUpdate;
+  Window.OnPress := @WindowPress;
 end.

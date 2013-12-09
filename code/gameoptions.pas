@@ -159,28 +159,31 @@ end;
 
 procedure OptionsResize(Window: TCastleWindow);
 const
-  Margin = 10;
+  Margin = 8;
 var
   CurrentBottom, OptionsHeight: Integer;
   QB: TQualityButton;
 begin
-  OptionsHeight := (QualityTitle.Rect.Height + Margin) * 4 + Margin * 2 +
-    PlayButton.Height;
+  OptionsHeight := QualityTitle.Rect.Height + Margin;
+  for QB in TQualityButton.Buttons do
+    OptionsHeight += QB.Rect.Height + Margin;
+  OptionsHeight += PlayButton.Rect.Height;
+
   CurrentBottom := (Window.Height + OptionsHeight) div 2;
 
-  PlayButton.Left := (Window.Width - PlayButton.Rect.Width) div 2;
+  PlayButton.CenterHorizontal;
+  CurrentBottom -= PlayButton.Rect.Height;
   PlayButton.Bottom := CurrentBottom;
-  CurrentBottom -= PlayButton.Rect.Height + Margin * 2;
 
-  QualityTitle.Left := (Window.Width - QualityTitle.Rect.Width) div 2;
-  QualityTitle.Bottom := CurrentBottom;
+  QualityTitle.CenterHorizontal;
   CurrentBottom -= QualityTitle.Rect.Height + Margin;
+  QualityTitle.Bottom := CurrentBottom;
 
   for QB in TQualityButton.Buttons do
   begin
-    QB.Left := (Window.Width - QB.Rect.Width) div 2;
-    QB.Bottom := CurrentBottom;
+    QB.CenterHorizontal;
     CurrentBottom -= QB.Rect.Height + Margin;
+    QB.Bottom := CurrentBottom;
   end;
 end;
 
