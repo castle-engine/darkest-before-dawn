@@ -13,7 +13,8 @@
         <activity android:name="android.app.NativeActivity"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             	android:launchMode="singleTask"
-            	android:configChanges="orientation|keyboardHidden">
+            	android:configChanges="orientation|keyboardHidden"
+		android:screenOrientation="sensorLandscape">
 	    <!-- NativeActivity must know the name of our library with JNI callbacks. -->
             <meta-data android:name="android.app.lib_name"
                        android:value="darkest_before_dawn" />
@@ -37,4 +38,6 @@
     <!--
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     -->
+
+    <uses-feature android:name="android.hardware.screen.landscape"/>
 </manifest>
