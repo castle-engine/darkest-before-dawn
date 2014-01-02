@@ -13,12 +13,16 @@ clean:
 	$(MAKE) -C ../castle_game_engine/ clean
 	$(MAKE) -C code/android clean
 
+FILES := --exclude *.xcf --exclude '*.blend*' README.txt data/
+WINDOWS_FILES := $(FILES) darkest_before_dawn_standalone.exe *.dll
+UNIX_FILES    := $(FILES) darkest_before_dawn_standalone
+
 .PHONY: release-win32
 release-win32: clean standalone
 	rm -Rf darkest_before_dawn-win32.zip
-	zip -r darkest_before_dawn-win32.zip README.txt darkest_before_dawn_standalone.exe *.dll data/
+	zip -r darkest_before_dawn-win32.zip $(WINDOWS_FILES)
 
 .PHONY: release-linux
 release-linux: clean standalone
 	rm -Rf darkest_before_dawn-linux-i386.tar.gz
-	tar czvf darkest_before_dawn-linux-i386.tar.gz README.txt darkest_before_dawn_standalone data/
+	tar czvf darkest_before_dawn-linux-i386.tar.gz $(UNIX_FILES)
