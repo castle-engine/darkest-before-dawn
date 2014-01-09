@@ -233,7 +233,7 @@ begin
   SceneManager.Exists := not Options;
   Game2DControls.Exists := not Options;
 
-  RestartButton.Exists := (not Options) and Player.Dead or GameWin;
+  RestartButton.Exists := (not Options) and (Player.Dead or GameWin);
 
   GoingUpImage.Exists := (not Options) and (not RestartButton.Exists) and GoingUp;
   { Reset GoingUp every frame. If we're still GoingUp, it will be set again
