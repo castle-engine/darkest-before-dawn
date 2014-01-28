@@ -59,7 +59,7 @@ const
 type
   TGame2DControls = class(TUIControl)
   public
-    procedure Draw; override;
+    procedure Render; override;
     function RenderStyle: TRenderStyle; override;
   end;
 
@@ -68,7 +68,7 @@ begin
   Result := rs2D;
 end;
 
-procedure TGame2DControls.Draw;
+procedure TGame2DControls.Render;
 var
   R: TRectangle;
 begin

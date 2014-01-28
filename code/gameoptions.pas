@@ -244,7 +244,7 @@ begin
 
   CurrentBottom -= PlayButton.Rect.Height;
   PlayButton.Bottom := CurrentBottom;
-  PlayButton.CenterHorizontal;
+  PlayButton.AlignHorizontal;
 
   QualityBottom := CurrentBottom;
   QualityBottom -= QualityTitle.Rect.Height + Margin * 3;
