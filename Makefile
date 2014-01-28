@@ -2,6 +2,7 @@
 standalone:
 	cd ../castle_game_engine/ && \
 	  fpc -dRELEASE -dCASTLE_WINDOW_BEST_NOGUI @castle-fpc.cfg \
+	  $${CASTLE_FPC_OPTIONS:-} \
 	  ../darkest_before_dawn/code/darkest_before_dawn_standalone.lpr
 	mv code/darkest_before_dawn_standalone .
 
