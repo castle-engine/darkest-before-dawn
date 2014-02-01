@@ -62,7 +62,7 @@ begin
     [Window.Fps.FrameTime, Window.Fps.RealTime]);
 end;
 
-procedure WindowOpen(Sender: TCastleWindowBase);
+procedure WindowOpen(Container: TUIContainer);
 begin
   { show progress bars on our Window }
   Progress.UserInterface := WindowProgressInterface;
@@ -70,18 +70,18 @@ begin
   Start(true);
 end;
 
-procedure WindowClose(Sender: TCastleWindowBase);
+procedure WindowClose(Container: TUIContainer);
 begin
   Progress.UserInterface := ProgressNullInterface;
 end;
 
-procedure WindowResize(Sender: TCastleWindowBase);
+procedure WindowResize(Container: TUIContainer);
 begin
   PlayResize(Window);
   OptionsResize(Window);
 end;
 
-procedure WindowUpdate(Sender: TCastleWindowBase);
+procedure WindowUpdate(Container: TUIContainer);
 begin
   PlayUpdate(Window);
   OptionsUpdate(Window);
@@ -93,7 +93,7 @@ begin
   if Options then
   begin
     { update Exists for all controls }
-    WindowUpdate(Window);
+    WindowUpdate(Window.Container);
   end else
   begin
     { update Exists for Options controls. Do not touch Play controls yet,
@@ -104,7 +104,7 @@ begin
   end;
 end;
 
-procedure WindowPress(Window: TCastleWindowBase; const Event: TInputPressRelease);
+procedure WindowPress(Container: TUIContainer; const Event: TInputPressRelease);
 begin
   if Event.IsKey(K_F5) then
   begin
