@@ -41,6 +41,8 @@ begin
   InitializeLog;
   {$endif}
 
+  Progress.UserInterface := WindowProgressInterface;
+
   { adjust theme }
   Theme.Images[tiProgressFill] := LoadImage(ApplicationData('ui/theme/ProgressFill.png'));
   Theme.OwnsImages[tiProgressFill] := true;
@@ -65,14 +67,7 @@ end;
 procedure WindowOpen(Container: TUIContainer);
 begin
   { show progress bars on our Window }
-  Progress.UserInterface := WindowProgressInterface;
-  WindowProgressInterface.Window := Window;
   Start(true);
-end;
-
-procedure WindowClose(Container: TUIContainer);
-begin
-  Progress.UserInterface := ProgressNullInterface;
 end;
 
 procedure WindowResize(Container: TUIContainer);
@@ -132,7 +127,6 @@ initialization
   Window := TCastleWindowTouch.Create(Application);
   Application.MainWindow := Window;
   Window.OnOpen := @WindowOpen;
-  Window.OnClose := @WindowClose;
   Window.OnResize := @WindowResize;
   Window.OnUpdate := @WindowUpdate;
   Window.OnPress := @WindowPress;
