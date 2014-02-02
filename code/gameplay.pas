@@ -60,20 +60,12 @@ type
   TGame2DControls = class(TUIControl)
   public
     procedure Render; override;
-    function RenderStyle: TRenderStyle; override;
   end;
-
-function TGame2DControls.RenderStyle: TRenderStyle;
-begin
-  Result := rs2D;
-end;
 
 procedure TGame2DControls.Render;
 var
   R: TRectangle;
 begin
-  if not GetExists then Exit;
-
   if Player.Dead then
     GLFadeRectangle(ContainerRect, Red, 1.0) else
     GLFadeRectangle(ContainerRect, Player.FadeOutColor, Player.FadeOutIntensity);
