@@ -66,7 +66,6 @@ end;
 
 procedure WindowOpen(Container: TUIContainer);
 begin
-  { show progress bars on our Window }
   Start(true);
 end;
 
