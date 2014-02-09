@@ -22,7 +22,7 @@ clean:
 	  code/libdarkest_before_dawn.so
 	find data/ -iname '*~' -exec rm -f '{}' ';'
 	$(MAKE) -C ../castle_game_engine/ clean
-	$(MAKE) -C code/android clean
+	$(MAKE) -C android clean
 
 FILES := --exclude *.xcf --exclude '*.blend*' README.txt data/
 WINDOWS_FILES := $(FILES) darkest_before_dawn_standalone.exe *.dll

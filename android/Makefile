@@ -18,22 +18,22 @@ BUILD=debug
 
 .PHONY: default
 default: data
-	cd ../../../castle_game_engine/ && ppcrossarm -Tandroid -CfVFPV3 -dRELEASE $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../darkest_before_dawn/code/darkest_before_dawn.lpr
+	cd ../../castle_game_engine/ && ppcrossarm -Tandroid -CfVFPV3 -dRELEASE $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../darkest_before_dawn/code/darkest_before_dawn.lpr
 	mkdir -p libs/armeabi/
-	cp -f ../libdarkest_before_dawn.so libs/armeabi/libdarkest_before_dawn.so
+	cp -f ../code/libdarkest_before_dawn.so libs/armeabi/libdarkest_before_dawn.so
 	$(MAKE) build-finish
 
 .PHONY: debug
 debug: data
 	cd ../../../castle_game_engine/ && ppcrossarm -Tandroid -CfVFPV3 -dDEBUG $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../darkest_before_dawn/code/darkest_before_dawn.lpr
-	cp -f ../libdarkest_before_dawn.so jni/libdarkest_before_dawn.so
+	cp -f ../code/libdarkest_before_dawn.so jni/libdarkest_before_dawn.so
 	export NDK_DEBUG=1 && ndk-build
 	$(MAKE) build-finish
 
 .PHONY: build-finish
 build-finish:
 	ant $(BUILD)
-	adb uninstall net.sourceforge.castleengine.darkestbeforedawn
+#	adb uninstall net.sourceforge.castleengine.darkestbeforedawn
 	adb install -r bin/DarkestBeforeDawn-$(BUILD).apk
 	adb shell am start -a android.intent.action.MAIN -n net.sourceforge.castleengine.darkestbeforedawn/android.app.NativeActivity
 
@@ -49,7 +49,7 @@ init:
 .PHONY: data
 data:
 	rm -Rf assets/
-	cp -R ../../data/ assets/
+	cp -R ../data/ assets/
 	find assets/ -type f \
 	   '(' -iname '*~' -or \
 	       -iname '*.xcf' -or \
