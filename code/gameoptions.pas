@@ -35,18 +35,26 @@ procedure OptionsResize(Window: TCastleWindow);
 
 type
   TQuality = (qBeautiful, qAverage, qFastest);
-
-function Quality: TQuality;
+const
+  DefaultQuality = qBeautiful;
+var
+  { Current quality. Outside code can set this variable only at initialization,
+    before OptionsInitialize (setting it later will not update GUI). }
+  Quality: TQuality = DefaultQuality;
 
 type
   TGamma = (gDarkest, gAverage, gBrightest);
-
-function Gamma: TGamma;
+const
+  DefaultGamma = gDarkest;
+var
+  { Current gamma. Like Quality, outside code can only change this Before
+    OptionsInitialize. }
+  Gamma: TGamma = DefaultGamma;
 
 implementation
 
 uses SysUtils, Classes, CastleControls, CastleUIControls, CastleImages,
-  CastleFilesUtils, Game;
+  CastleFilesUtils, CastleConfig, Game;
 
 { Play button ---------------------------------------------------------------- }
 
@@ -68,14 +76,6 @@ var
 
 const
   QualityNames: array [TQuality] of string = ('beautiful', 'average', 'fastest');
-
-var
-  FQuality: TQuality = qBeautiful;
-
-function Quality: TQuality;
-begin
-  Result := FQuality;
-end;
 
 type
   TQualityButton = class(TCastleButton)
@@ -99,7 +99,8 @@ procedure TQualityButton.DoClick;
 var
   B: TQualityButton;
 begin
-  FQuality := Value;
+  Quality := Value;
+  Config.SetDeleteValue('quality', Ord(Quality), Ord(DefaultQuality));
   for B in Buttons do
     B.Pressed := B = Self;
 end;
@@ -108,14 +109,6 @@ end;
 
 const
   GammaNames: array [TGamma] of string = ('darkest', 'average', 'brightest');
-
-var
-  FGamma: TGamma = gDarkest;
-
-function Gamma: TGamma;
-begin
-  Result := FGamma;
-end;
 
 type
   TGammaButton = class(TCastleButton)
@@ -139,7 +132,8 @@ procedure TGammaButton.DoClick;
 var
   B: TGammaButton;
 begin
-  FGamma := Value;
+  Gamma := Value;
+  Config.SetDeleteValue('gamma', Ord(Gamma), Ord(DefaultGamma));
   for B in Buttons do
     B.Pressed := B = Self;
 end;

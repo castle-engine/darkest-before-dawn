@@ -144,7 +144,7 @@ begin
     They will not do anything if we don't use the related functionality
     (if we don't put anything into the default Player.Inventory),
     but it's a little cleaner to still disable them to avoid spurious
-    warnings like "No weapon equipped" on each each press on Ctrl key. }
+    warnings like "No weapon equipped" on each press of Ctrl key. }
   Input_Attack.MakeClear;
   Input_InventoryShow.MakeClear;
   Input_InventoryPrevious.MakeClear;

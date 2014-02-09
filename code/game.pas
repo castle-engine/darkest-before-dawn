@@ -28,8 +28,8 @@ procedure Start(AOptions: boolean);
 implementation
 
 uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
-  CastleControls, CastlePrecalculatedAnimation, CastleGLImages,
-  CastleImages, CastleFilesUtils, CastleKeysMouse,
+  CastleControls, CastlePrecalculatedAnimation, CastleGLImages, CastleConfig,
+  CastleImages, CastleFilesUtils, CastleKeysMouse, CastleUtils,
   GameOptions, GamePlay;
 
 { routines ------------------------------------------------------------------- }
@@ -52,6 +52,11 @@ begin
   Theme.OwnsImages[tiButtonFocused] := true;
   Theme.Images[tiButtonNormal] := LoadImage(ApplicationData('ui/theme/ButtonNormal.png'));
   Theme.OwnsImages[tiButtonNormal] := true;
+
+  Quality := TQuality(Clamped(
+    Config.GetValue('quality', Ord(DefaultQuality)), 0, Ord(High(TQuality))));
+  Gamma := TGamma(Clamped(
+    Config.GetValue('gamma', Ord(DefaultGamma)), 0, Ord(High(TGamma))));
 
   { create 2D and 3D stuff for game and for options screen }
   PlayInitialize(Window);
