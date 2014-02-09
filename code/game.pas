@@ -56,17 +56,14 @@ begin
   { create 2D and 3D stuff for game and for options screen }
   PlayInitialize(Window);
   OptionsInitialize(Window);
+
+  Start(true);
 end;
 
 procedure ApplicationTimer;
 begin
   WritelnLog('FPS', '%f (real : %f)',
     [Window.Fps.FrameTime, Window.Fps.RealTime]);
-end;
-
-procedure WindowOpen(Container: TUIContainer);
-begin
-  Start(true);
 end;
 
 procedure WindowResize(Container: TUIContainer);
@@ -125,7 +122,6 @@ initialization
   { create Window and initialize Window callbacks }
   Window := TCastleWindowTouch.Create(Application);
   Application.MainWindow := Window;
-  Window.OnOpen := @WindowOpen;
   Window.OnResize := @WindowResize;
   Window.OnUpdate := @WindowUpdate;
   Window.OnPress := @WindowPress;
