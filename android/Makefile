@@ -25,7 +25,7 @@ default: data
 
 .PHONY: debug
 debug: data
-	cd ../../../castle_game_engine/ && ppcrossarm -Tandroid -CfVFPV3 -dDEBUG $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../darkest_before_dawn/code/darkest_before_dawn.lpr
+	cd ../../castle_game_engine/ && ppcrossarm -Tandroid -CfVFPV3 -dDEBUG $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../darkest_before_dawn/code/darkest_before_dawn.lpr
 	cp -f ../code/libdarkest_before_dawn.so jni/libdarkest_before_dawn.so
 	export NDK_DEBUG=1 && ndk-build
 	$(MAKE) build-finish
