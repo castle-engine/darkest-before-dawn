@@ -208,10 +208,14 @@ end;
 
 procedure OptionsUpdate(Window: TCastleWindow);
 var
+  I: Integer;
   C: TUIControl;
 begin
-  for C in OptionsControls do
+  for I := 0 to OptionsControls.Count - 1 do
+  begin
+    C := OptionsControls[I];
     C.Exists := Options;
+  end;
 end;
 
 procedure OptionsResize(Window: TCastleWindow);
