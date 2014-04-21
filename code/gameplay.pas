@@ -145,13 +145,13 @@ begin
     (if we don't put anything into the default Player.Inventory),
     but it's a little cleaner to still disable them to avoid spurious
     warnings like "No weapon equipped" on each press of Ctrl key. }
-  Input_Attack.MakeClear;
-  Input_InventoryShow.MakeClear;
-  Input_InventoryPrevious.MakeClear;
-  Input_InventoryNext.MakeClear;
-  Input_UseItem.MakeClear;
-  Input_DropItem.MakeClear;
-  Input_CancelFlying.MakeClear;
+  Input_Attack.MakeClear(true);
+  Input_InventoryShow.MakeClear(true);
+  Input_InventoryPrevious.MakeClear(true);
+  Input_InventoryNext.MakeClear(true);
+  Input_UseItem.MakeClear(true);
+  Input_DropItem.MakeClear(true);
+  Input_CancelFlying.MakeClear(true);
 
   OnCreatureExists := @TGame(nil).CreatureExists;
 end;
