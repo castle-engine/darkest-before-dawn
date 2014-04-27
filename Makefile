@@ -20,13 +20,14 @@ clean:
 	       darkest_before_dawn_standalone      darkest_before_dawn_standalone.exe \
 	  code/darkest_before_dawn_standalone code/darkest_before_dawn_standalone.exe \
 	  code/libdarkest_before_dawn.so
-	find data/ -iname '*~' -exec rm -f '{}' ';'
+	/bin/find data/ -iname '*~' -exec rm -f '{}' ';'
 	$(MAKE) -C ../castle_game_engine/ clean
 	$(MAKE) -C android clean
 
-FILES := --exclude *.xcf --exclude '*.blend*' README.txt data/
-WINDOWS_FILES := $(FILES) darkest_before_dawn_standalone.exe *.dll
-UNIX_FILES    := $(FILES) darkest_before_dawn_standalone
+# Keep --exclude at the end, some zip versions require this
+FILES := README.txt data/ --exclude *.xcf --exclude '*.blend*'
+WINDOWS_FILES := darkest_before_dawn_standalone.exe *.dll $(FILES)
+UNIX_FILES    := darkest_before_dawn_standalone           $(FILES)
 
 .PHONY: release-win32
 release-win32: clean standalone
