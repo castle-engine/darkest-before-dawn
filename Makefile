@@ -20,7 +20,7 @@ clean:
 	       darkest_before_dawn_standalone      darkest_before_dawn_standalone.exe \
 	  code/darkest_before_dawn_standalone code/darkest_before_dawn_standalone.exe \
 	  code/libdarkest_before_dawn.so
-	/bin/find data/ -iname '*~' -exec rm -f '{}' ';'
+	find data/ -iname '*~' -exec rm -f '{}' ';'
 	$(MAKE) -C ../castle_game_engine/ clean
 	$(MAKE) -C android clean
 
