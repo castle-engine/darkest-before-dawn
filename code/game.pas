@@ -104,10 +104,12 @@ procedure WindowPress(Container: TUIContainer; const Event: TInputPressRelease);
 begin
   if Event.IsKey(K_F5) then
   begin
-   { test whether close+open of context works Ok. }
+    { test whether close+open of context works Ok. }
     Window.Close(false);
     Window.Open;
   end;
+  if Event.IsKey(K_Escape) then
+    Application.Quit;
 end;
 
 function MyGetApplicationName: string;
