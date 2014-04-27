@@ -21,6 +21,9 @@
 program darkest_before_dawn_standalone;
 uses CastleWindow, CastleConfig, Game;
 begin
+  Window.FullScreen := true;
+  Window.ParseParameters;
+
   Config.Load;
   Application.Initialize;
   Window.OpenAndRun;
