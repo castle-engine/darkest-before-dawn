@@ -48,6 +48,7 @@ uses SysUtils, CastleControls, CastleUIControls, CastleVectors,
   Game,
   GameLevels { use, to run GameLevels initialization, to register level logic };
 
+{$i castleconf.inc}
 var
   GoingUpImage: TCastleImageControl;
 

@@ -90,7 +90,7 @@
         m_fScale = 1.0;
     
     CGEA_Open();
-    CGEA_SetUserInterface(true, 115 * m_fScale);
+    CGEA_SetUserInterface(false, 115 * m_fScale);   // TODO: we had to send "desktop", otherwise touch controls does not work (as they want to be automatic?)
     
     [self update];
 }
