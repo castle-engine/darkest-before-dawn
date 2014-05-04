@@ -165,7 +165,7 @@ enum ECgeKey    // values for these constants have to be same as in unit CastleK
 typedef int (__cdecl *TCgeLibraryCallbackProc)(int /*ECgeLibCallbackCode*/eCode, int iParam1, int iParam2, const char *szParam);
 
 //-----------------------------------------------------------------------------
-extern void CGEA_Open(unsigned uiFlags);     // init the library, this function must be called first (required). Flags is any combination of ECgeOpenFlag
+extern void CGEA_Open();     // init the library, this function must be called first (required).
 extern void CGEA_Close();
 extern void CGEA_SetUserInterface(bool bAutomaticTouchInterface, int nDpi); // should be called at the start of the program. Touch interface controls will be updated automatically then.
 
