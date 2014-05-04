@@ -32,6 +32,12 @@
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
+    <Target>
+      <Filename Value="../darkest_before_dawn_standalone"/>
+    </Target>
+    <SearchPaths>
+      <UnitOutputDirectory Value="build"/>
+    </SearchPaths>
     <Parsing>
       <SyntaxOptions>
         <CStyleMacros Value="True"/>

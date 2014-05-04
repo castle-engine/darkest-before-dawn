@@ -157,7 +157,7 @@ begin
 end;
 
 const
-  AliveTouchInterface = etciCtlWalkDragRotate;
+  AliveTouchInterface = {$ifdef OpenGLES} etciCtlWalkDragRotate; {$else} etciNone; {$endif}
     { etciNone;
       For this game, etciNone is too troublesome, as you often mistakenly
       do walk/rotate when you want to do only the other thing.
