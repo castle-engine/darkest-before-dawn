@@ -19,9 +19,7 @@
 		4D629E2D1916B8170082689B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2C1916B8170082689B /* OpenGLES.framework */; };
 		4D629E2F1916B81E0082689B /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2E1916B81E0082689B /* GLKit.framework */; };
 		4D629E311916B8250082689B /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E301916B8250082689B /* OpenAL.framework */; };
-		4D629E351916BC620082689B /* creatures in Resources */ = {isa = PBXBuildFile; fileRef = 4D629E321916BC620082689B /* creatures */; };
-		4D629E361916BC620082689B /* level in Resources */ = {isa = PBXBuildFile; fileRef = 4D629E331916BC620082689B /* level */; };
-		4D629E371916BC620082689B /* ui in Resources */ = {isa = PBXBuildFile; fileRef = 4D629E341916BC620082689B /* ui */; };
+		4D629E391916CA160082689B /* data in Resources */ = {isa = PBXBuildFile; fileRef = 4D629E381916CA160082689B /* data */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,9 +41,7 @@
 		4D629E2C1916B8170082689B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		4D629E2E1916B81E0082689B /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		4D629E301916B8250082689B /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		4D629E321916BC620082689B /* creatures */ = {isa = PBXFileReference; lastKnownFileType = folder; name = creatures; path = ../data/creatures; sourceTree = "<group>"; };
-		4D629E331916BC620082689B /* level */ = {isa = PBXFileReference; lastKnownFileType = folder; name = level; path = ../data/level; sourceTree = "<group>"; };
-		4D629E341916BC620082689B /* ui */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ui; path = ../data/ui; sourceTree = "<group>"; };
+		4D629E381916CA160082689B /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../data; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,9 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				4D629DFD1916B0EB0082689B /* Darkest */,
-				4D629E321916BC620082689B /* creatures */,
-				4D629E331916BC620082689B /* level */,
-				4D629E341916BC620082689B /* ui */,
+				4D629E381916CA160082689B /* data */,
 				4D629DF61916B0EB0082689B /* Frameworks */,
 				4D629DF51916B0EB0082689B /* Products */,
 			);
@@ -176,10 +170,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D629E371916BC620082689B /* ui in Resources */,
-				4D629E351916BC620082689B /* creatures in Resources */,
-				4D629E361916BC620082689B /* level in Resources */,
 				4D629E021916B0EB0082689B /* InfoPlist.strings in Resources */,
+				4D629E391916CA160082689B /* data in Resources */,
 				4D629E0A1916B0EB0082689B /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

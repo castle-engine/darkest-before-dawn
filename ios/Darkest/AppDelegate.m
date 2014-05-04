@@ -25,8 +25,7 @@
     viewController.view = view;
     viewController.preferredFramesPerSecond = 60;
     
-    UINavigationController *navCtl = [[UINavigationController alloc] initWithRootViewController:viewController];
-    self.window.rootViewController = navCtl;
+    self.window.rootViewController = viewController;
     
     [viewController viewDidLoad];
     
