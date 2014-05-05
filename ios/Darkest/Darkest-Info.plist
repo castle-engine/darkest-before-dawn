@@ -73,5 +73,7 @@
 			<true/>
 		</dict>
 	</dict>
+    <key>UIPrerenderedIcon</key>
+	<true/>
 </dict>
 </plist>
