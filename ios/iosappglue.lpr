@@ -24,7 +24,9 @@ uses CTypes, Math, SysUtils, CastleWindow, CastleWindowTouch, CastleUtils,
 procedure CGEA_Open; cdecl;
 begin
   try
-    Config.Load;
+    InitializeLog;
+
+    //Config.Load;	// TODO: need to set correct writable location on iOS
     Application.Initialize;
     Window.OpenAndRun;
   except
@@ -37,7 +39,7 @@ begin
   try
     Window.Close;
     FreeAndNil(Window);
-    Config.Save;
+    //Config.Save;
   except
     on E: TObject do WritelnLog('Window', ExceptMessage(E));
   end;

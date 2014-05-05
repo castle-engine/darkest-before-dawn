@@ -224,7 +224,7 @@
         
         CGPoint pt = [touch locationInView:self.view];
         [self RecalcTouchPosForCGE:&pt];
-        CGE_Motion(pt.x, pt.y, nFingerIdx);
+        CGEA_Motion(pt.x, pt.y, nFingerIdx);
     }*/
     
     [super touchesMoved:touches withEvent:event];
@@ -234,6 +234,12 @@
 
 //-----------------------------------------------------------------
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+}
+
+//---------------------------------------------------------------------------
+- (BOOL)prefersStatusBarHidden   // hide status bar (iOS7)
 {
     return YES;
 }
