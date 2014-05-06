@@ -208,7 +208,7 @@ begin
 
   { SceneManager.LoadLevel always initializes Camera, always to TWalkCamera }
   Walk := SceneManager.Camera as TWalkCamera;
-  Walk.MouseDraggingHorizontalRotationSpeed := 0.5 / (Window.Dpi / 96);
+  Walk.MouseDraggingHorizontalRotationSpeed := 0.5 / (Window.Dpi / DefaultDPI);
   Walk.MouseDraggingVerticalRotationSpeed := 0;
   Player.EnableCameraDragging := true;
 end;
