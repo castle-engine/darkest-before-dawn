@@ -69,3 +69,16 @@ echo "fi" >>ppccmd.sh
 rm ppccmd.sh
 rm filelist.tmp
 mv $EXECUTABLE_NAME "$CWD"
+cd "$CWD"
+
+#copy resources from data to assets while removing the source files
+echo "Copying assets"
+rm -Rf Darkest/assets/
+cp -R ../data/ Darkest/assets/
+find Darkest/assets/ -type f \
+   '(' -iname '*~' -or \
+	   -iname '*.xcf' -or \
+	   -iname '*.blend' -or \
+	   -iname '*.blend1' -or \
+	   -iname '*.blend2' ')' \
+   -exec rm -f '{}' ';'
