@@ -36,6 +36,7 @@
       <Filename Value="../darkest_before_dawn_standalone"/>
     </Target>
     <SearchPaths>
+      <IncludeFiles Value="../../castle_game_engine/src/base"/>
       <UnitOutputDirectory Value="build"/>
     </SearchPaths>
     <Parsing>
