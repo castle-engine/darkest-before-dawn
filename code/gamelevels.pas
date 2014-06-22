@@ -156,15 +156,6 @@ begin
   inherited;
 end;
 
-{ Hermite interpolation between two values.
-  Just like GLSL smoothstep:
-  http://www.khronos.org/opengles/sdk/docs/manglsl/xhtml/smoothstep.xml }
-function SmoothStep(const Edge0, Edge1, X: Single): Single;
-begin
-  Result := Clamped((X - Edge0) / (Edge1 - Edge0), 0.0, 1.0);
-  Result := Result * Result * (3.0 - 2.0 * Result);
-end;
-
 procedure TLevel1.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType);
 var
   E: TElevator;
