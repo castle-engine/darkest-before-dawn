@@ -11,9 +11,9 @@ clean:
 	$(MAKE) -C android clean
 
 .PHONY: release-win32
-release-win32: clean standalone
+release-win32:
 	castle-engine package --os=win32 --cpu=i386
 
 .PHONY: release-linux
-release-linux: clean standalone
+release-linux:
 	castle-engine package --os=linux --cpu=i386
