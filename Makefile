@@ -1,18 +1,9 @@
-# Extension of executable is determined by target operating system,
-# that in turn depends on 1. -T options in CASTLE_FPC_OPTIONS and
-# 2. current OS, if no -T inside CASTLE_FPC_OPTIONS. It's easiest to just
-# use "fpc -iTO", to avoid having to detect OS (or parse CASTLE_FPC_OPTIONS)
-# in the Makefile.
-TARGET_OS = $(shell fpc -iTO $${CASTLE_FPC_OPTIONS:-})
-EXE_EXTENSION = $(shell if '[' '(' $(TARGET_OS) '=' 'win32' ')' -o '(' $(TARGET_OS) '=' 'win64' ')' ']'; then echo '.exe'; else echo ''; fi)
+# This Makefile uses castle-engine build tool for most operations.
+# See https://sourceforge.net/p/castle-engine/wiki/Build%20tool/ .
 
 .PHONY: standalone
 standalone:
-	cd ../castle_game_engine/ && \
-	  fpc -dRELEASE -dCASTLE_WINDOW_BEST_NOGUI @castle-fpc.cfg \
-	  $${CASTLE_FPC_OPTIONS:-} \
-	  ../darkest_before_dawn/code/darkest_before_dawn_standalone.lpr
-	mv code/darkest_before_dawn_standalone$(EXE_EXTENSION) .
+	castle-engine compile $(CASTLE_ENGINE_TOOL_OPTIONS)
 
 .PHONY: clean
 clean:
