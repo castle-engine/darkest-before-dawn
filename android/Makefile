@@ -15,18 +15,17 @@
 # https://sourceforge.net/p/castle-engine/wiki/Android%20development/#debugging-running-application-on-an-android-device-using-ndk-gdb
 
 BUILD=debug
-FPC_OPTIONS:=-CfVFPV3
 
 .PHONY: default
 default: data
-	cd ../../castle_game_engine/ && ppcrossarm -Tandroid $(FPC_OPTIONS) -dRELEASE $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../darkest_before_dawn/code/darkest_before_dawn.lpr
+	cd ../ && castle-engine compile --mode=release --os=android --cpu=arm
 	mkdir -p libs/armeabi/
 	cp -f ../code/libdarkest_before_dawn.so libs/armeabi/libdarkest_before_dawn.so
 	$(MAKE) build-finish
 
 .PHONY: debug
 debug: data
-	cd ../../castle_game_engine/ && ppcrossarm -Tandroid $(FPC_OPTIONS) -dDEBUG $${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg ../darkest_before_dawn/code/darkest_before_dawn.lpr
+	cd ../ && castle-engine compile --mode=debug --os=android --cpu=arm
 	cp -f ../code/libdarkest_before_dawn.so jni/libdarkest_before_dawn.so
 	export NDK_DEBUG=1 && ndk-build
 	$(MAKE) build-finish
