@@ -16,25 +16,13 @@ standalone:
 
 .PHONY: clean
 clean:
-	rm -f \
-	       darkest_before_dawn_standalone      darkest_before_dawn_standalone.exe \
-	  code/darkest_before_dawn_standalone code/darkest_before_dawn_standalone.exe \
-	  code/libdarkest_before_dawn.so
-	find data/ -iname '*~' -exec rm -f '{}' ';'
-	$(MAKE) -C ../castle_game_engine/ clean
+	castle-engine clean
 	$(MAKE) -C android clean
-
-# Keep --exclude at the end, some zip versions require this
-FILES := README.txt data/ --exclude *.xcf --exclude '*.blend*'
-WINDOWS_FILES := darkest_before_dawn_standalone.exe *.dll $(FILES)
-UNIX_FILES    := darkest_before_dawn_standalone           $(FILES)
 
 .PHONY: release-win32
 release-win32: clean standalone
-	rm -Rf darkest_before_dawn-win32.zip
-	zip -r darkest_before_dawn-win32.zip $(WINDOWS_FILES)
+	castle-engine package --os=win32 --cpu=i386
 
 .PHONY: release-linux
 release-linux: clean standalone
-	rm -Rf darkest_before_dawn-linux-i386.tar.gz
-	tar czvf darkest_before_dawn-linux-i386.tar.gz $(UNIX_FILES)
+	castle-engine package --os=linux --cpu=i386

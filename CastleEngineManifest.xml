@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="darkest_before_dawn"
+  executable_name="darkest_before_dawn_standalone"
+  standalone_source="code/darkest_before_dawn_standalone.lpr"
+  android_source="code/darkest_before_dawn.lpr">
+  <package>
+    <include path="README.txt" />
+    <include path="COPYING.GPL2.txt" />
+  </package>
+</project>
