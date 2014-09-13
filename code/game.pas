@@ -103,6 +103,8 @@ end;
 procedure WindowPress(Container: TUIContainer; const Event: TInputPressRelease);
 begin
   if Event.IsKey(K_F5) then
+    Window.SaveScreen(FileNameAutoInc(ApplicationName + '_screen_%d.png')) else
+  if Event.IsKey(K_F8) then
   begin
     { test whether close+open of context works Ok. }
     Window.Close(false);
