@@ -3,6 +3,9 @@
   executable_name="darkest_before_dawn_standalone"
   standalone_source="code/darkest_before_dawn_standalone.lpr"
   android_source="code/darkest_before_dawn.lpr">
+  <icons>
+    <icon path="store-graphics/icon-2-wersjabezksiezyca.png" />
+  </icons>
   <package>
     <include path="README.txt" />
     <include path="COPYING.GPL2.txt" />
