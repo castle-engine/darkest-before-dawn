@@ -19,6 +19,11 @@
   This allows you to compile the same game game (in Game unit)
   as a normal, standalone executable for normal OSes (Linux, Windows, MacOSX...). }
 program darkest_before_dawn_standalone;
+
+{$ifdef MSWINDOWS}
+  {$R ../automatic-windows-resources.res}
+{$endif MSWINDOWS}
+
 uses CastleWindow, CastleConfig, Game;
 begin
   Window.FullScreen := true;
