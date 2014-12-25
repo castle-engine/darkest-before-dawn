@@ -16,6 +16,18 @@
 { Game playing logic (as opposed to logic in the options menu). }
 unit GamePlay;
 
+{ Should we use touch interface.
+  Note: do *not* base this on OpenGLES define, as
+  1. final programs should not include castleconf.inc file,
+  2. generally OpenGLES usage is not related to whether platform uses
+     touch input (it only so happens that *right now*, by default,
+     only Android and iOS use OpenGLES and only they have touch input).
+     Making it orthogonal allows to e.g. test TOUCH_INTERFACE with normal
+     desktop OpenGL rendering. }
+{ $define TOUCH_INTERFACE} // useful to test TOUCH_INTERFACE on desktops
+{$ifdef ANDROID} {$define TOUCH_INTERFACE} {$endif}
+{$ifdef iOS}     {$define TOUCH_INTERFACE} {$endif}
+
 interface
 
 uses CastleWindow, CastlePlayer, CastleLevels, CastleCreatures,
@@ -48,7 +60,6 @@ uses SysUtils, CastleControls, CastleUIControls, CastleVectors,
   Game,
   GameLevels { use, to run GameLevels initialization, to register level logic };
 
-{$i castleconf.inc}
 var
   GoingUpImage: TCastleImageControl;
 
@@ -158,9 +169,10 @@ begin
 end;
 
 const
-  AliveTouchInterface = {$ifdef OpenGLES} etciCtlWalkDragRotate; {$else} etciNone; {$endif}
-    { etciNone;
-      For this game, etciNone is too troublesome, as you often mistakenly
+  AliveTouchInterface =
+    {$ifdef TOUCH_INTERFACE} tiCtlWalkDragRotate; {$else} tiNone; {$endif}
+    { tiNone;
+      For this game, tiNone is too troublesome, as you often mistakenly
       do walk/rotate when you want to do only the other thing.
       It's important here, as accidental movement moves you away from light,
       which has (deadly) gameplay consequences :) }
@@ -239,7 +251,7 @@ begin
     Player.Life := Min(Player.MaxLife,
       Player.Life + Window.Fps.UpdateSecondsPassed * RegenerateSpeed);
   end else
-    Window.TouchInterface := etciNone;
+    Window.TouchInterface := tiNone;
 end;
 
 end.
