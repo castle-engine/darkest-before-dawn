@@ -27,7 +27,6 @@ begin
     InitializeLog;
 
     //Config.Load;	// TODO: need to set correct writable location on iOS
-    Application.Initialize;
     Window.OpenAndRun;
   except
     on E: TObject do WritelnLog('Window', ExceptMessage(E));
