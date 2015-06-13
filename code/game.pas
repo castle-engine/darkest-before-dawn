@@ -37,9 +37,7 @@ uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
 { One-time initialization. }
 procedure ApplicationInitialize;
 begin
-  {$ifndef MSWINDOWS} { Under Windows, log requires stderr. }
   InitializeLog;
-  {$endif}
 
   Progress.UserInterface := WindowProgressInterface;
 
