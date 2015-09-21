@@ -201,7 +201,7 @@ begin
   Projected := PointOnLineClosestToPoint(MorningEmpty, MorningFull, PlayerPos);
   MorningFactor := PointsDistance(MorningEmpty, Projected) /
                    PointsDistance(MorningEmpty, MorningFull);
-  Clamp(MorningFactor, 0, 1);
+  ClampVar(MorningFactor, 0, 1);
   (BackgroundEffect.Fields.ByName[MorningUniform] as TSFFloat).
     Send(MorningFactor);
 
