@@ -51,10 +51,12 @@ begin
   Theme.Images[tiButtonNormal] := LoadImage(ApplicationData('ui/theme/ButtonNormal.png'));
   Theme.OwnsImages[tiButtonNormal] := true;
 
+  UserConfig.Load;
+
   Quality := TQuality(Clamped(
-    Config.GetValue('quality', Ord(DefaultQuality)), 0, Ord(High(TQuality))));
+    UserConfig.GetValue('quality', Ord(DefaultQuality)), 0, Ord(High(TQuality))));
   Gamma := TGamma(Clamped(
-    Config.GetValue('gamma', Ord(DefaultGamma)), 0, Ord(High(TGamma))));
+    UserConfig.GetValue('gamma', Ord(DefaultGamma)), 0, Ord(High(TGamma))));
 
   { create 2D and 3D stuff for game and for options screen }
   PlayInitialize(Window);

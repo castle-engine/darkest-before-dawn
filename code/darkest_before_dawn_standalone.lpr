@@ -24,12 +24,9 @@ program darkest_before_dawn_standalone;
   {$R ../automatic-windows-resources.res}
 {$endif MSWINDOWS}
 
-uses CastleWindow, CastleConfig, Game;
+uses CastleWindow, Game;
 begin
   Window.FullScreen := true;
   Window.ParseParameters;
-
-  Config.Load;
   Window.OpenAndRun;
-  Config.Save;
 end.

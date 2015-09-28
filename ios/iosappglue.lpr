@@ -26,7 +26,7 @@ begin
   try
     InitializeLog;
 
-    //Config.Load;	// TODO: need to set correct writable location on iOS
+    //UserConfig.Load;	// TODO: need to set correct writable location on iOS
     Window.OpenAndRun;
   except
     on E: TObject do WritelnLog('Window', ExceptMessage(E));
@@ -38,7 +38,7 @@ begin
   try
     Window.Close;
     FreeAndNil(Window);
-    //Config.Save;
+    //UserConfig.Save;
   except
     on E: TObject do WritelnLog('Window', ExceptMessage(E));
   end;

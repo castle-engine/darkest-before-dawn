@@ -100,7 +100,8 @@ var
   B: TQualityButton;
 begin
   Quality := Value;
-  Config.SetDeleteValue('quality', Ord(Quality), Ord(DefaultQuality));
+  UserConfig.SetDeleteValue('quality', Ord(Quality), Ord(DefaultQuality));
+  UserConfig.Save;
   for B in Buttons do
     B.Pressed := B = Self;
 end;
@@ -133,7 +134,8 @@ var
   B: TGammaButton;
 begin
   Gamma := Value;
-  Config.SetDeleteValue('gamma', Ord(Gamma), Ord(DefaultGamma));
+  UserConfig.SetDeleteValue('gamma', Ord(Gamma), Ord(DefaultGamma));
+  UserConfig.Save;
   for B in Buttons do
     B.Pressed := B = Self;
 end;
