@@ -120,7 +120,7 @@
         
         CGPoint pt = [m_arrTouches[i] locationInView:self.view];
         [self RecalcTouchPosForCGE:&pt];
-        CGEA_Motion(pt.x, pt.y, i);
+        CGEA_Motion(pt.x, pt.y, (int)i);
     }
     
     CGEA_Update();
@@ -170,7 +170,7 @@
         
         CGPoint pt = [touch locationInView:self.view];
         [self RecalcTouchPosForCGE:&pt];
-        CGEA_TouchDown(pt.x, pt.y, nFingerIdx);
+        CGEA_TouchDown(pt.x, pt.y, (int)nFingerIdx);
     }
     
     [super touchesBegan:touches withEvent:event];
@@ -188,7 +188,7 @@
         
         CGPoint pt = [touch locationInView:self.view];
         [self RecalcTouchPosForCGE:&pt];
-        CGEA_TouchUp(pt.x, pt.y, nFingerIdx);
+        CGEA_TouchUp(pt.x, pt.y, (int)nFingerIdx);
     }
 
     [super touchesEnded:touches withEvent:event];
@@ -206,7 +206,7 @@
         
         CGPoint pt = [touch locationInView:self.view];
         [self RecalcTouchPosForCGE:&pt];
-        CGEA_TouchUp(pt.x, pt.y, nFingerIdx);
+        CGEA_TouchUp(pt.x, pt.y, (int)nFingerIdx);
     }
     
     [super touchesCancelled:touches withEvent:event];
