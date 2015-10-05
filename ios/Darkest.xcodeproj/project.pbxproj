@@ -16,9 +16,9 @@
 		4D629E2D1916B8170082689B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2C1916B8170082689B /* OpenGLES.framework */; };
 		4D629E2F1916B81E0082689B /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2E1916B81E0082689B /* GLKit.framework */; };
 		4D629E311916B8250082689B /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E301916B8250082689B /* OpenAL.framework */; };
-		4D7FD5851BC2BF2F00C340EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD5821BC2BF2F00C340EB /* AppDelegate.m */; };
-		4D7FD5861BC2BF2F00C340EB /* OpenGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD5841BC2BF2F00C340EB /* OpenGLController.m */; };
-		4D7FD5881BC2BF9F00C340EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD5871BC2BF9F00C340EB /* main.m */; };
+		4D7FD58A1BC2C43400C340EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD5891BC2C43400C340EB /* main.m */; };
+		4D7FD58F1BC2C44C00C340EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD58C1BC2C44C00C340EB /* AppDelegate.m */; };
+		4D7FD5901BC2C44C00C340EB /* OpenGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD58E1BC2C44C00C340EB /* OpenGLController.m */; };
 		4D90CC2219197A82004E90CC /* data in Resources */ = {isa = PBXBuildFile; fileRef = 4D90CC2119197A82004E90CC /* data */; };
 /* End PBXBuildFile section */
 
@@ -36,11 +36,11 @@
 		4D629E2E1916B81E0082689B /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		4D629E301916B8250082689B /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		4D7FD5801BC2BBF500C340EB /* castleiosappglue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = castleiosappglue.h; path = ../../../castle_game_engine/src/base/ios/castleiosappglue.h; sourceTree = "<group>"; };
-		4D7FD5811BC2BF2F00C340EB /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../../castle_game_engine/src/base/ios/AppDelegate.h; sourceTree = "<group>"; };
-		4D7FD5821BC2BF2F00C340EB /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../../castle_game_engine/src/base/ios/AppDelegate.m; sourceTree = "<group>"; };
-		4D7FD5831BC2BF2F00C340EB /* OpenGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLController.h; path = ../../../castle_game_engine/src/base/ios/OpenGLController.h; sourceTree = "<group>"; };
-		4D7FD5841BC2BF2F00C340EB /* OpenGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLController.m; path = ../../../castle_game_engine/src/base/ios/OpenGLController.m; sourceTree = "<group>"; };
-		4D7FD5871BC2BF9F00C340EB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../../castle_game_engine/src/base/ios/main.m; sourceTree = "<group>"; };
+		4D7FD5891BC2C43400C340EB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../../../castle_game_engine/tools/build-tool/templates/ios/main.m"; sourceTree = "<group>"; };
+		4D7FD58B1BC2C44C00C340EB /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../../../castle_game_engine/tools/build-tool/templates/ios/AppDelegate.h"; sourceTree = "<group>"; };
+		4D7FD58C1BC2C44C00C340EB /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "../../../castle_game_engine/tools/build-tool/templates/ios/AppDelegate.m"; sourceTree = "<group>"; };
+		4D7FD58D1BC2C44C00C340EB /* OpenGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLController.h; path = "../../../castle_game_engine/tools/build-tool/templates/ios/OpenGLController.h"; sourceTree = "<group>"; };
+		4D7FD58E1BC2C44C00C340EB /* OpenGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLController.m; path = "../../../castle_game_engine/tools/build-tool/templates/ios/OpenGLController.m"; sourceTree = "<group>"; };
 		4D90CC2119197A82004E90CC /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = Darkest/data; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,10 +97,10 @@
 		4D629DFD1916B0EB0082689B /* Darkest */ = {
 			isa = PBXGroup;
 			children = (
-				4D7FD5811BC2BF2F00C340EB /* AppDelegate.h */,
-				4D7FD5821BC2BF2F00C340EB /* AppDelegate.m */,
-				4D7FD5831BC2BF2F00C340EB /* OpenGLController.h */,
-				4D7FD5841BC2BF2F00C340EB /* OpenGLController.m */,
+				4D7FD58B1BC2C44C00C340EB /* AppDelegate.h */,
+				4D7FD58C1BC2C44C00C340EB /* AppDelegate.m */,
+				4D7FD58D1BC2C44C00C340EB /* OpenGLController.h */,
+				4D7FD58E1BC2C44C00C340EB /* OpenGLController.m */,
 				4D7FD5801BC2BBF500C340EB /* castleiosappglue.h */,
 				4D629E091916B0EB0082689B /* Images.xcassets */,
 				4D629DFE1916B0EB0082689B /* Supporting Files */,
@@ -111,7 +111,7 @@
 		4D629DFE1916B0EB0082689B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4D7FD5871BC2BF9F00C340EB /* main.m */,
+				4D7FD5891BC2C43400C340EB /* main.m */,
 				4D629DFF1916B0EB0082689B /* Darkest-Info.plist */,
 				4D629E001916B0EB0082689B /* InfoPlist.strings */,
 				4D629E051916B0EB0082689B /* Darkest-Prefix.pch */,
@@ -183,9 +183,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D7FD5861BC2BF2F00C340EB /* OpenGLController.m in Sources */,
-				4D7FD5881BC2BF9F00C340EB /* main.m in Sources */,
-				4D7FD5851BC2BF2F00C340EB /* AppDelegate.m in Sources */,
+				4D7FD5901BC2C44C00C340EB /* OpenGLController.m in Sources */,
+				4D7FD58F1BC2C44C00C340EB /* AppDelegate.m in Sources */,
+				4D7FD58A1BC2C43400C340EB /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
