@@ -36,11 +36,11 @@
 		4D629E091916B0EB0082689B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		4D629E261916B2690082689B /* OpenGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLController.h; sourceTree = "<group>"; };
 		4D629E271916B2690082689B /* OpenGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLController.m; sourceTree = "<group>"; };
-		4D629E291916B33D0082689B /* iosappglue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iosappglue.h; sourceTree = SOURCE_ROOT; };
 		4D629E2A1916B7A40082689B /* libiosappglue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiosappglue.a; sourceTree = "<group>"; };
 		4D629E2C1916B8170082689B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		4D629E2E1916B81E0082689B /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		4D629E301916B8250082689B /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		4D7FD5801BC2BBF500C340EB /* castleiosappglue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = castleiosappglue.h; path = ../../../castle_game_engine/src/base/ios/castleiosappglue.h; sourceTree = "<group>"; };
 		4D90CC2119197A82004E90CC /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = Darkest/data; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,7 +97,7 @@
 		4D629DFD1916B0EB0082689B /* Darkest */ = {
 			isa = PBXGroup;
 			children = (
-				4D629E291916B33D0082689B /* iosappglue.h */,
+				4D7FD5801BC2BBF500C340EB /* castleiosappglue.h */,
 				4D629E261916B2690082689B /* OpenGLController.h */,
 				4D629E271916B2690082689B /* OpenGLController.m */,
 				4D629E061916B0EB0082689B /* AppDelegate.h */,

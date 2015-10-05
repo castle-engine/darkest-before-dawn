@@ -8,13 +8,13 @@ echo "set -e" >ppccmd.sh
 COMPILE_SIM=1
 COMPILE_ARM=1
 EXECUTABLE_NAME="libiosappglue.a"
-FPC_MAIN_FILE="../darkest_before_dawn/ios/iosappglue.lpr"
+FPC_MAIN_FILE="../darkest_before_dawn/code/darkest_before_dawn_ios.lpr"
 #FPC_SIM_COMPILER="fpc -Pi386 -V3.0.1"  #this selects x64 - probably bug in FPC setup script
 FPC_SIM_COMPILER="/usr/local/lib/fpc/3.0.1/ppc386"
 FPC_SIM64_COMPILER="fpc -Px86_64 -V3.0.1"
 FPC_ARM_COMPILER="fpc -Parm"
 FPC_ARM64_COMPILER="fpc -Paarch64"
-FPC_COMMON="-Cn -WP5.1 ${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg -dCASTLE_WINDOW_LIBRARY -Fu'../darkest_before_dawn/code'"
+FPC_COMMON="-Cn -WP5.1 ${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg -dCASTLE_WINDOW_LIBRARY"
 OBJECT_FILE_DIR_normal="../darkest_before_dawn/ios"
 PROJECT_DIR="."
 OUTPUT_SIM="$OBJECT_FILE_DIR_normal/out-iphonesim"
