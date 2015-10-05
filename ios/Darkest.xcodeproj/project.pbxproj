@@ -11,14 +11,14 @@
 		4D629DFA1916B0EB0082689B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629DF91916B0EB0082689B /* CoreGraphics.framework */; };
 		4D629DFC1916B0EB0082689B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629DFB1916B0EB0082689B /* UIKit.framework */; };
 		4D629E021916B0EB0082689B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D629E001916B0EB0082689B /* InfoPlist.strings */; };
-		4D629E041916B0EB0082689B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D629E031916B0EB0082689B /* main.m */; };
-		4D629E081916B0EB0082689B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D629E071916B0EB0082689B /* AppDelegate.m */; };
 		4D629E0A1916B0EB0082689B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D629E091916B0EB0082689B /* Images.xcassets */; };
-		4D629E281916B2690082689B /* OpenGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D629E271916B2690082689B /* OpenGLController.m */; };
 		4D629E2B1916B7A40082689B /* libiosappglue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2A1916B7A40082689B /* libiosappglue.a */; };
 		4D629E2D1916B8170082689B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2C1916B8170082689B /* OpenGLES.framework */; };
 		4D629E2F1916B81E0082689B /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2E1916B81E0082689B /* GLKit.framework */; };
 		4D629E311916B8250082689B /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E301916B8250082689B /* OpenAL.framework */; };
+		4D7FD5851BC2BF2F00C340EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD5821BC2BF2F00C340EB /* AppDelegate.m */; };
+		4D7FD5861BC2BF2F00C340EB /* OpenGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD5841BC2BF2F00C340EB /* OpenGLController.m */; };
+		4D7FD5881BC2BF9F00C340EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD5871BC2BF9F00C340EB /* main.m */; };
 		4D90CC2219197A82004E90CC /* data in Resources */ = {isa = PBXBuildFile; fileRef = 4D90CC2119197A82004E90CC /* data */; };
 /* End PBXBuildFile section */
 
@@ -29,18 +29,18 @@
 		4D629DFB1916B0EB0082689B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		4D629DFF1916B0EB0082689B /* Darkest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Darkest-Info.plist"; sourceTree = "<group>"; };
 		4D629E011916B0EB0082689B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4D629E031916B0EB0082689B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D629E051916B0EB0082689B /* Darkest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Darkest-Prefix.pch"; sourceTree = "<group>"; };
-		4D629E061916B0EB0082689B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		4D629E071916B0EB0082689B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		4D629E091916B0EB0082689B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4D629E261916B2690082689B /* OpenGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLController.h; sourceTree = "<group>"; };
-		4D629E271916B2690082689B /* OpenGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLController.m; sourceTree = "<group>"; };
 		4D629E2A1916B7A40082689B /* libiosappglue.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libiosappglue.a; sourceTree = "<group>"; };
 		4D629E2C1916B8170082689B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		4D629E2E1916B81E0082689B /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		4D629E301916B8250082689B /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		4D7FD5801BC2BBF500C340EB /* castleiosappglue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = castleiosappglue.h; path = ../../../castle_game_engine/src/base/ios/castleiosappglue.h; sourceTree = "<group>"; };
+		4D7FD5811BC2BF2F00C340EB /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../../../castle_game_engine/src/base/ios/AppDelegate.h; sourceTree = "<group>"; };
+		4D7FD5821BC2BF2F00C340EB /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../../../castle_game_engine/src/base/ios/AppDelegate.m; sourceTree = "<group>"; };
+		4D7FD5831BC2BF2F00C340EB /* OpenGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLController.h; path = ../../../castle_game_engine/src/base/ios/OpenGLController.h; sourceTree = "<group>"; };
+		4D7FD5841BC2BF2F00C340EB /* OpenGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLController.m; path = ../../../castle_game_engine/src/base/ios/OpenGLController.m; sourceTree = "<group>"; };
+		4D7FD5871BC2BF9F00C340EB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../../castle_game_engine/src/base/ios/main.m; sourceTree = "<group>"; };
 		4D90CC2119197A82004E90CC /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = Darkest/data; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,11 +97,11 @@
 		4D629DFD1916B0EB0082689B /* Darkest */ = {
 			isa = PBXGroup;
 			children = (
+				4D7FD5811BC2BF2F00C340EB /* AppDelegate.h */,
+				4D7FD5821BC2BF2F00C340EB /* AppDelegate.m */,
+				4D7FD5831BC2BF2F00C340EB /* OpenGLController.h */,
+				4D7FD5841BC2BF2F00C340EB /* OpenGLController.m */,
 				4D7FD5801BC2BBF500C340EB /* castleiosappglue.h */,
-				4D629E261916B2690082689B /* OpenGLController.h */,
-				4D629E271916B2690082689B /* OpenGLController.m */,
-				4D629E061916B0EB0082689B /* AppDelegate.h */,
-				4D629E071916B0EB0082689B /* AppDelegate.m */,
 				4D629E091916B0EB0082689B /* Images.xcassets */,
 				4D629DFE1916B0EB0082689B /* Supporting Files */,
 			);
@@ -111,9 +111,9 @@
 		4D629DFE1916B0EB0082689B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4D7FD5871BC2BF9F00C340EB /* main.m */,
 				4D629DFF1916B0EB0082689B /* Darkest-Info.plist */,
 				4D629E001916B0EB0082689B /* InfoPlist.strings */,
-				4D629E031916B0EB0082689B /* main.m */,
 				4D629E051916B0EB0082689B /* Darkest-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -183,9 +183,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D629E281916B2690082689B /* OpenGLController.m in Sources */,
-				4D629E081916B0EB0082689B /* AppDelegate.m in Sources */,
-				4D629E041916B0EB0082689B /* main.m in Sources */,
+				4D7FD5861BC2BF2F00C340EB /* OpenGLController.m in Sources */,
+				4D7FD5881BC2BF9F00C340EB /* main.m in Sources */,
+				4D7FD5851BC2BF2F00C340EB /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
