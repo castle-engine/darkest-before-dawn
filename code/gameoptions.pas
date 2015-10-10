@@ -154,25 +154,25 @@ var
   GB: TGammaButton;
   Background: TCastleImageControl;
 begin
-  OptionsControls := TUIControlList.Create(false);
+  OptionsControls := TUIControlList.Create(nil);
 
   Background := TCastleImageControl.Create(Application);
   Background.URL := ApplicationData('ui/options_bg.png');
   Background.Stretch := true;
   Background.FullSize := true;
   Window.Controls.InsertFront(Background);
-  OptionsControls.Add(Background);
+  OptionsControls.InsertFront(Background);
 
   PlayButton := TPlayButton.Create(Application);
   PlayButton.Image := LoadImage(ApplicationData('ui/play.png'));
   PlayButton.OwnsImage := true;
   Window.Controls.InsertFront(PlayButton);
-  OptionsControls.Add(PlayButton);
+  OptionsControls.InsertFront(PlayButton);
 
   QualityTitle := TCastleImageControl.Create(Application);
   QualityTitle.URL := ApplicationData('ui/quality_title.png');
   Window.Controls.InsertFront(QualityTitle);
-  OptionsControls.Add(QualityTitle);
+  OptionsControls.InsertFront(QualityTitle);
 
   for Q in TQuality do
   begin
@@ -185,13 +185,13 @@ begin
 
     Window.Controls.InsertFront(QB);
     TQualityButton.Buttons[Q] := QB;
-    OptionsControls.Add(QB);
+    OptionsControls.InsertFront(QB);
   end;
 
   GammaTitle := TCastleImageControl.Create(Application);
   GammaTitle.URL := ApplicationData('ui/gamma_title.png');
   Window.Controls.InsertFront(GammaTitle);
-  OptionsControls.Add(GammaTitle);
+  OptionsControls.InsertFront(GammaTitle);
 
   for G in TGamma do
   begin
@@ -204,7 +204,7 @@ begin
 
     Window.Controls.InsertFront(GB);
     TGammaButton.Buttons[G] := GB;
-    OptionsControls.Add(GB);
+    OptionsControls.InsertFront(GB);
   end;
 end;
 
@@ -244,7 +244,7 @@ begin
 
   CurrentBottom -= PlayButton.Rect.Height;
   PlayButton.Bottom := CurrentBottom;
-  PlayButton.AlignHorizontal;
+  PlayButton.Anchor(hpMiddle);
 
   QualityBottom := CurrentBottom;
   QualityBottom -= QualityTitle.Rect.Height + Margin * 3;
