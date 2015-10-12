@@ -154,7 +154,7 @@ var
   GB: TGammaButton;
   Background: TCastleImageControl;
 begin
-  OptionsControls := TUIControlList.Create(nil);
+  OptionsControls := TUIControlList.Create(false);
 
   Background := TCastleImageControl.Create(Application);
   Background.URL := ApplicationData('ui/options_bg.png');
