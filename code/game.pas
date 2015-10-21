@@ -111,7 +111,7 @@ begin
     Window.Open;
   end;
   if Event.IsKey(K_Escape) then
-    Application.Quit;
+    Application.Terminate;
 end;
 
 function MyGetApplicationName: string;
