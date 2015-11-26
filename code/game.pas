@@ -30,13 +30,14 @@ implementation
 uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
   CastleControls, CastlePrecalculatedAnimation, CastleGLImages, CastleConfig,
   CastleImages, CastleFilesUtils, CastleKeysMouse, CastleUtils,
-  GameOptions, GamePlay, GameGooglePlayGames;
+  GameOptions, GamePlay, GameGooglePlayGames, GameAds;
 
 { routines ------------------------------------------------------------------- }
 
 procedure ApplicationInitializeJavaActivity;
 begin
   GooglePlayGames.Initialize;
+  AdInitialize;
 end;
 
 { One-time initialization. }

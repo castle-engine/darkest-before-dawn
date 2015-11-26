@@ -57,7 +57,7 @@ uses SysUtils, CastleControls, CastleUIControls, CastleVectors,
   CastleColors, CastleFilesUtils, CastleLog, CastleSceneCore, CastleImages,
   CastleResources, CastleGLUtils, CastleUtils, CastleRectangles, CastleCameras,
   CastleSceneManager, CastlePrecalculatedAnimation, CastleGLImages, GameOptions,
-  Game,
+  Game, GameAds,
   GameLevels { use, to run GameLevels initialization, to register level logic };
 
 var
@@ -104,8 +104,12 @@ type
   end;
 
 procedure TRestartButton.DoClick;
+const
+  AdChance = 0.5;
 begin
   Start(true);
+  if Random < AdChance then
+    AdShowInterstitial;
 end;
 
 var

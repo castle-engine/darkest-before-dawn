@@ -15,6 +15,8 @@
 
 { Library to run the game on Android. }
 library darkest_before_dawn;
-uses CastleAndroidNativeAppGlue, Game;
-exports ANativeActivity_onCreate;
+uses CastleAndroidNativeAppGlue, Game, CastleMessaging;
+exports
+  Java_net_sourceforge_castleengine_MainActivity_jniMessage,
+  ANativeActivity_onCreate;
 end.

@@ -6,7 +6,7 @@
   standalone_source="code/darkest_before_dawn_standalone.lpr"
   android_source="code/darkest_before_dawn.lpr"
   screen_orientation="landscape">
-  <version value="1.2.0" code="10" />
+  <version value="1.3.0" code="11" />
   <icons>
     <icon path="store-graphics/icon-2-wersjabezksiezyca.png" />
   </icons>
