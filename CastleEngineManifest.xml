@@ -14,4 +14,7 @@
     <include path="README.txt" />
     <include path="COPYING.GPL2.txt" />
   </package>
+  <android project_type="integrated">
+    <google_play_services app_id="1020561970941" />
+  </android>
 </project>

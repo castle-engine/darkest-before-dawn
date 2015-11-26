@@ -29,9 +29,12 @@ type
       strict private
         Moving: T3DLinearMoving;
         Scene: TCastleScene;
+        FName: string;
+        FAchievementId: string;
       public
-        constructor Create(const Name: string; const World: T3DWorld;
-          const Owner: TLevel1; const Height: Single);
+        constructor Create(const AName: string; const World: T3DWorld;
+          const Owner: TLevel1; const Height: Single;
+          const AnAchievementId: string = '');
         procedure Update;
       end;
       TElevatorList = specialize TFPGObjectList<TElevator>;
@@ -53,17 +56,21 @@ type
 
 implementation
 
-uses SysUtils, CastleFilesUtils, GamePlay, CastleStringUtils, CastleWarnings,
-  X3DFields, CastleUtils, GameOptions;
+uses SysUtils, CastleFilesUtils, CastleStringUtils, CastleWarnings,
+  X3DFields, CastleUtils, CastleLog,
+  GamePlay, GameOptions, GameGooglePlayGames;
 
 { TLevel1.TElevator ---------------------------------------------------------- }
 
-constructor TLevel1.TElevator.Create(const Name: string; const World: T3DWorld;
-  const Owner: TLevel1; const Height: Single);
+constructor TLevel1.TElevator.Create(const AName: string; const World: T3DWorld;
+  const Owner: TLevel1; const Height: Single; const AnAchievementId: string);
 begin
   inherited Create;
 
-  Scene := Owner.LoadLevelScene(ApplicationData('level/1/' + Name), true);
+  FName := AName;
+  FAchievementId := AnAchievementId;
+
+  Scene := Owner.LoadLevelScene(ApplicationData('level/1/' + FName), true);
 
   Moving := T3DLinearMoving.Create(Owner);
   Moving.Add(Scene);
@@ -80,6 +87,9 @@ begin
   if Moving.CompletelyBeginPosition and PlayerInside then
   begin
     Moving.GoEndPosition;
+    WritelnLog('Elevator', 'Moving the elevator ' + FName + ', achievement ' + FAchievementId);
+    if FAchievementId <> '' then
+      GooglePlayGames.Achievement(FAchievementId);
   end else
   if Moving.CompletelyEndPosition and not PlayerInside then
   begin
@@ -125,14 +135,14 @@ var
 begin
   inherited;
   Elevators := TElevatorList.Create(true);
-  Elevators.Add(TElevator.Create('stages/street/elevator_1.x3d', AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/street/elevator_2.x3d', AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/tube/elevator_1.x3d', AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/outdoors/elevator_1.x3d', AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/above/elevator_1.x3d', AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/above/elevator_2.x3d', AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/above/elevator_3.x3d', AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/above/elevator_4.x3d', AWorld, Self, 10));
+  Elevators.Add(TElevator.Create('stages/tube/elevator_1.x3d'    , AWorld, Self, 10, AchievementStage1));
+  Elevators.Add(TElevator.Create('stages/street/elevator_1.x3d'  , AWorld, Self, 10, AchievementStage2));
+  Elevators.Add(TElevator.Create('stages/street/elevator_2.x3d'  , AWorld, Self, 10, AchievementStage2));
+  Elevators.Add(TElevator.Create('stages/outdoors/elevator_1.x3d', AWorld, Self, 10, AchievementStage3));
+  Elevators.Add(TElevator.Create('stages/above/elevator_1.x3d'   , AWorld, Self, 10, AchievementStage4));
+  Elevators.Add(TElevator.Create('stages/above/elevator_2.x3d'   , AWorld, Self, 10));
+  Elevators.Add(TElevator.Create('stages/above/elevator_3.x3d'   , AWorld, Self, 10));
+  Elevators.Add(TElevator.Create('stages/above/elevator_4.x3d'   , AWorld, Self, 10));
   Lights := TVector3SingleList.Create;
 
   BrightnessEffect := FindEffectNode('BrightnessEffect', DistanceFactorUniform);
@@ -205,9 +215,14 @@ begin
   (BackgroundEffect.Fields.ByName[MorningUniform] as TSFFloat).
     Send(MorningFactor);
 
-
   if GameWinBox.PointInside(PlayerPos) then
-    GameWin := true;
+  begin
+    if not GameWin then
+    begin
+      GooglePlayGames.Achievement(AchievementWin);
+      GameWin := true;
+    end;
+  end;
 end;
 
 function TLevel1.Placeholder(const Shape: TShape;
