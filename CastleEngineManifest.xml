@@ -15,8 +15,11 @@
     <include path="COPYING.GPL2.txt" />
   </package>
   <android project_type="integrated">
-    <google_play_services app_id="1020561970941" />
     <components>
+      <component name="google_play_services" />
+      <component name="google_play_games">
+        <parameter key="app_id" value="1020561970941" />
+      </component>
       <component name="chartboost" />
     </components>
   </android>
