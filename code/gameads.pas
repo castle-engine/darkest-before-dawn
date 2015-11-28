@@ -48,7 +48,7 @@ end;
 
 procedure AdShowInterstitial;
 begin
-  Ads.ShowInterstitial(atChartboost, false);
+  Ads.ShowInterstitial(anChartboost, false);
 end;
 
 initialization
