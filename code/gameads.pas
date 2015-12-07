@@ -31,24 +31,23 @@ var
 
 procedure AdInitialize;
 const
-  { Chartboost application id/signature.
+  { Heyzap publisher id.
 
-    Do *not* simply copy-paste strings below into your own games.
-    The values below are connected with my "Darkest Before the Dawn",
-    and the revenue from ads goes to me, the "Darkest Before the Dawn" author.
+    Do *not* simply copy-paste string below into your own games!
+    The value below is connected with me and the revenue from ads goes to me,
+    the "Darkest Before the Dawn" author.
 
-    If you want to use Chartboost for your own games, you need to register
-    on Chartboost, add your application on https://dashboard.chartboost.com/ ,
-    and get the magic strings for your app from your Chartboost dashboard. }
-  ChartboostAppId = '5656a979883809705c3673e2';
-  ChartboostAppSignature = '477892e78faa64cc4c9789f8be64d4236bc6ace9';
+    If you want to use Heyzap for your own games, you need to register
+    on Heyzap, add your applications on http://heyzap.com/ ,
+    and get the magic id for your app from your Heyzap account. }
+  HeyzapPublisherId = '101475e09025a48b0f2a80eff9f05e7b';
 begin
-  Ads.InitializeChartboost(ChartboostAppId, ChartboostAppSignature);
+  Ads.InitializeHeyzap(HeyzapPublisherId);
 end;
 
 procedure AdShowInterstitial;
 begin
-  Ads.ShowInterstitial(anChartboost, false);
+  Ads.ShowInterstitial(anHeyzap, false);
 end;
 
 initialization

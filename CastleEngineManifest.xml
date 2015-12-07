@@ -20,7 +20,7 @@
       <component name="google_play_games">
         <parameter key="app_id" value="1020561970941" />
       </component>
-      <component name="chartboost" />
+      <component name="heyzap" />
     </components>
   </android>
 </project>
