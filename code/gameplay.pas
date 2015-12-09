@@ -109,7 +109,7 @@ const
 begin
   Start(true);
   if Random < AdChance then
-    AdShowInterstitial;
+    AdShowFullScreen;
 end;
 
 var

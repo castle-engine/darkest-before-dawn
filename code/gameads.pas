@@ -19,7 +19,7 @@ unit GameAds;
 interface
 
 procedure AdInitialize;
-procedure AdShowInterstitial;
+procedure AdShowFullScreen;
 
 implementation
 
@@ -45,9 +45,9 @@ begin
   Ads.InitializeHeyzap(HeyzapPublisherId);
 end;
 
-procedure AdShowInterstitial;
+procedure AdShowFullScreen;
 begin
-  Ads.ShowInterstitial(anHeyzap, false);
+  Ads.ShowFullScreenAd(anHeyzap, atInterstitialVideo, false);
 end;
 
 initialization
