@@ -19,7 +19,7 @@ unit GameLevels;
 interface
 
 uses Classes, CastleLevels, Castle3D, CastleScene, DOM, FGL, CastleShapes,
-  CastleVectors, X3DNodes, CastleBoxes;
+  CastleVectors, X3DNodes, CastleBoxes, X3DFields;
 
 type
   TLevel1 = class(TLevelLogic)
@@ -42,7 +42,7 @@ type
     var
       Elevators: TElevatorList;
       Lights: TVector3SingleList;
-      BrightnessEffect, BackgroundEffect: TEffectNode;
+      BrightnessDistanceFactor, BackgroundMorning: TSFFloat;
       MorningEmpty, MorningFull: TVector3Single;
       GameWinBox: TBox3D;
   public
@@ -57,7 +57,7 @@ type
 implementation
 
 uses SysUtils, CastleFilesUtils, CastleStringUtils, CastleWarnings,
-  X3DFields, CastleUtils, CastleLog,
+  CastleUtils, CastleLog,
   GamePlay, GameOptions, GameGooglePlayGames;
 
 { TLevel1.TElevator ---------------------------------------------------------- }
@@ -103,35 +103,11 @@ end;
 
 { TLevel1 -------------------------------------------------------------------- }
 
-const
-  DistanceFactorUniform = 'distance_factor';
-  MorningUniform = 'morning';
-
 constructor TLevel1.Create(AOwner: TComponent; AWorld: T3DWorld;
   MainScene: TCastleScene; DOMElement: TDOMElement);
-
-  { Find named Effect node, and make sure it has a float uniform with
-    given name. }
-  function FindEffectNode(const EffectNodeName: string;
-    const UniformName: string): TEffectNode;
-  begin
-    Result := MainScene.RootNode.FindNodeByName(
-      TEffectNode, EffectNodeName, false) as TEffectNode;
-
-    { checks }
-    if Result = nil then
-      OnWarning(wtMajor, 'Level', Format('%s node not found',
-        [EffectNodeName])) else
-    if Result.Fields.IndexOf(UniformName) = -1 then
-      OnWarning(wtMajor, 'Level', Format('%s node found, but without %s uniform',
-        [EffectNodeName, UniformName])) else
-    if not (Result.Fields.ByName[UniformName] is TSFFloat) then
-      OnWarning(wtMajor, 'Level', Format('%s.%s uniform found, but is not SFFloat',
-        [EffectNodeName, UniformName]));
-  end;
-
 var
   GammaVal: Single;
+  BrightnessInvGamma: TSFFloat;
 begin
   inherited;
   Elevators := TElevatorList.Create(true);
@@ -145,8 +121,9 @@ begin
   Elevators.Add(TElevator.Create('stages/above/elevator_4.x3d'   , AWorld, Self, 10));
   Lights := TVector3SingleList.Create;
 
-  BrightnessEffect := FindEffectNode('BrightnessEffect', DistanceFactorUniform);
-  BackgroundEffect := FindEffectNode('BackgroundEffect', MorningUniform);
+  BrightnessDistanceFactor := MainScene.Field('BrightnessEffect', 'distance_factor') as TSFFloat;
+  BackgroundMorning := MainScene.Field('BackgroundEffect', 'morning') as TSFFloat;
+  BrightnessInvGamma := MainScene.Field('BrightnessEffect', 'inv_gamma') as TSFFloat;
 
   case Gamma of
     gDarkest  : GammaVal := 1.0;
@@ -155,8 +132,7 @@ begin
     else raise EInternalError.Create('Gamma??');
   end;
 
-  (BrightnessEffect.Fields.ByName['inv_gamma'] as TSFFloat).
-    Send(1 / GammaVal);
+  BrightnessInvGamma.Send(1 / GammaVal);
 end;
 
 destructor TLevel1.Destroy;
@@ -196,8 +172,7 @@ begin
   DistanceFactor := SmoothStep(DistanceToSecurity, DistanceToDanger,
     DistanceToClosestLight);
 
-  (BrightnessEffect.Fields.ByName[DistanceFactorUniform] as TSFFloat).
-    Send(DistanceFactor);
+  BrightnessDistanceFactor.Send(DistanceFactor);
 
   if DistanceFactor < 0.5 then
   begin
@@ -212,8 +187,7 @@ begin
   MorningFactor := PointsDistance(MorningEmpty, Projected) /
                    PointsDistance(MorningEmpty, MorningFull);
   ClampVar(MorningFactor, 0, 1);
-  (BackgroundEffect.Fields.ByName[MorningUniform] as TSFFloat).
-    Send(MorningFactor);
+  BackgroundMorning.Send(MorningFactor);
 
   if GameWinBox.PointInside(PlayerPos) then
   begin
