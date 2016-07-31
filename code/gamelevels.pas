@@ -56,8 +56,8 @@ type
 
 implementation
 
-uses SysUtils, CastleFilesUtils, CastleStringUtils, CastleWarnings,
-  CastleUtils, CastleLog,
+uses SysUtils,
+  CastleFilesUtils, CastleStringUtils, CastleUtils, CastleLog,
   GamePlay, GameOptions, GameGooglePlayGames;
 
 { TLevel1.TElevator ---------------------------------------------------------- }
