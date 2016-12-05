@@ -56,7 +56,7 @@ implementation
 uses SysUtils, CastleControls, CastleUIControls, CastleVectors,
   CastleColors, CastleFilesUtils, CastleLog, CastleSceneCore, CastleImages,
   CastleResources, CastleGLUtils, CastleUtils, CastleRectangles, CastleCameras,
-  CastleSceneManager, CastlePrecalculatedAnimation, CastleGLImages, GameOptions,
+  CastleSceneManager, X3DLoad, CastleGLImages, GameOptions,
   Game, GameAds,
   GameLevels { use, to run GameLevels initialization, to register level logic };
 
@@ -79,8 +79,9 @@ var
   R: TRectangle;
 begin
   if Player.Dead then
-    GLFadeRectangle(ParentRect, Red, 1.0) else
-    GLFadeRectangle(ParentRect, Player.FadeOutColor, Player.FadeOutIntensity);
+    GLFadeRectangleDark(ParentRect, Red, 1.0)
+  else
+    GLFadeRectangleDark(ParentRect, Player.FadeOutColor, Player.FadeOutIntensity);
 
   R := Rectangle(UIMargin, UIMargin, 40, 100);
   DrawRectangle(R.Grow(2), Vector4Single(1.0, 0.5, 0.5, 0.2));
@@ -193,17 +194,17 @@ begin
   case Quality of
     qBeautiful:
       begin
-        AnimationSmoothness := 1.0;
+        BakedAnimationSmoothness := 1.0;
         GLTextureScale := 1;
       end;
     qAverage:
       begin
-        AnimationSmoothness := 0.75;
+        BakedAnimationSmoothness := 0.75;
         GLTextureScale := 1;
       end;
     qFastest:
       begin
-        AnimationSmoothness := 0.5;
+        BakedAnimationSmoothness := 0.5;
         GLTextureScale := 2;
       end;
     else raise EInternalError.Create('quality?');
