@@ -1,5 +1,5 @@
 {
-  Copyright 2013-2016 Michalis Kamburelis, Jan Adamec.
+  Copyright 2013-2017 Michalis Kamburelis, Jan Adamec.
 
   This file is part of "Darkest Before Dawn".
 
