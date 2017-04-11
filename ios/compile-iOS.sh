@@ -2,30 +2,25 @@
 set -e
 
 CWD=$(pwd)
-cd ../../castle_game_engine
+cd ../../castle-engine
 
 echo "set -e" >ppccmd.sh
 COMPILE_SIM=1
 COMPILE_ARM=1
 EXECUTABLE_NAME="libiosappglue.a"
-FPC_MAIN_FILE="../darkest_before_dawn/code/darkest_before_dawn_ios.lpr"
-#FPC_SIM_COMPILER="fpc -Pi386 -V3.0.1"  #this selects x64 - probably bug in FPC setup script
-FPC_SIM_COMPILER="/usr/local/lib/fpc/3.0.1/ppc386"
-FPC_SIM64_COMPILER="fpc -Px86_64 -V3.0.1"
+FPC_MAIN_FILE="../darkest-before-dawn/code/darkest_before_dawn_ios.lpr"
+FPC_SIM_COMPILER="fpc -Pi386 -V3.0.3"
+FPC_SIM64_COMPILER="fpc -Px86_64 -V3.0.3"
 FPC_ARM_COMPILER="fpc -Parm"
 FPC_ARM64_COMPILER="fpc -Paarch64"
 FPC_COMMON="-Cn -WP5.1 ${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg -dCASTLE_WINDOW_LIBRARY"
-OBJECT_FILE_DIR_normal="../darkest_before_dawn/ios"
+OBJECT_FILE_DIR_normal="../darkest-before-dawn/ios"
 PROJECT_DIR="."
 OUTPUT_SIM="$OBJECT_FILE_DIR_normal/out-iphonesim"
 OUTPUT_ARM="$OBJECT_FILE_DIR_normal/out-armv7"
 OUTPUT_SIM64="$OBJECT_FILE_DIR_normal/out-iphonesim64"
 OUTPUT_ARM64="$OBJECT_FILE_DIR_normal/out-arm64"
-#debug
-FPC_CONFIG="-CirotR -gltw -Sa"
-#release
-#FPC_CONFIG="-O2"
-#FPC_CONFIG="-gw"
+FPC_CONFIG="-dDEBUG"
 
 SIM_LIB=$OUTPUT_SIM/$EXECUTABLE_NAME
 ARM_LIB=$OUTPUT_ARM/$EXECUTABLE_NAME

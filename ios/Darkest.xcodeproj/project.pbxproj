@@ -16,10 +16,10 @@
 		4D629E2D1916B8170082689B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2C1916B8170082689B /* OpenGLES.framework */; };
 		4D629E2F1916B81E0082689B /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E2E1916B81E0082689B /* GLKit.framework */; };
 		4D629E311916B8250082689B /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D629E301916B8250082689B /* OpenAL.framework */; };
-		4D7FD58A1BC2C43400C340EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD5891BC2C43400C340EB /* main.m */; };
-		4D7FD58F1BC2C44C00C340EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD58C1BC2C44C00C340EB /* AppDelegate.m */; };
-		4D7FD5901BC2C44C00C340EB /* OpenGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D7FD58E1BC2C44C00C340EB /* OpenGLController.m */; };
 		4D90CC2219197A82004E90CC /* data in Resources */ = {isa = PBXBuildFile; fileRef = 4D90CC2119197A82004E90CC /* data */; };
+		84DEEDF21E9D7B3800A9228C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEDEE1E9D7B3800A9228C /* AppDelegate.m */; };
+		84DEEDF31E9D7B3800A9228C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEDEF1E9D7B3800A9228C /* main.m */; };
+		84DEEDF41E9D7B3800A9228C /* OpenGLController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEDF11E9D7B3800A9228C /* OpenGLController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,13 +35,13 @@
 		4D629E2C1916B8170082689B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		4D629E2E1916B81E0082689B /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		4D629E301916B8250082689B /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
-		4D7FD5801BC2BBF500C340EB /* castleiosappglue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = castleiosappglue.h; path = ../../../castle_game_engine/src/base/ios/castleiosappglue.h; sourceTree = "<group>"; };
-		4D7FD5891BC2C43400C340EB /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../../../castle_game_engine/tools/build-tool/templates/ios/main.m"; sourceTree = "<group>"; };
-		4D7FD58B1BC2C44C00C340EB /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../../../castle_game_engine/tools/build-tool/templates/ios/AppDelegate.h"; sourceTree = "<group>"; };
-		4D7FD58C1BC2C44C00C340EB /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "../../../castle_game_engine/tools/build-tool/templates/ios/AppDelegate.m"; sourceTree = "<group>"; };
-		4D7FD58D1BC2C44C00C340EB /* OpenGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLController.h; path = "../../../castle_game_engine/tools/build-tool/templates/ios/OpenGLController.h"; sourceTree = "<group>"; };
-		4D7FD58E1BC2C44C00C340EB /* OpenGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLController.m; path = "../../../castle_game_engine/tools/build-tool/templates/ios/OpenGLController.m"; sourceTree = "<group>"; };
 		4D90CC2119197A82004E90CC /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = Darkest/data; sourceTree = "<group>"; };
+		84DEEDED1E9D7B3800A9228C /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../../../castle-engine/tools/build-tool/data/ios/base/AppDelegate.h"; sourceTree = "<group>"; };
+		84DEEDEE1E9D7B3800A9228C /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "../../../castle-engine/tools/build-tool/data/ios/base/AppDelegate.m"; sourceTree = "<group>"; };
+		84DEEDEF1E9D7B3800A9228C /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../../../castle-engine/tools/build-tool/data/ios/base/main.m"; sourceTree = "<group>"; };
+		84DEEDF01E9D7B3800A9228C /* OpenGLController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenGLController.h; path = "../../../castle-engine/tools/build-tool/data/ios/base/OpenGLController.h"; sourceTree = "<group>"; };
+		84DEEDF11E9D7B3800A9228C /* OpenGLController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OpenGLController.m; path = "../../../castle-engine/tools/build-tool/data/ios/base/OpenGLController.m"; sourceTree = "<group>"; };
+		84DEEDF51E9D7B8600A9228C /* castleiosappglue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = castleiosappglue.h; path = "../../../castle-engine/src/base/ios/castleiosappglue.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,11 +97,12 @@
 		4D629DFD1916B0EB0082689B /* Darkest */ = {
 			isa = PBXGroup;
 			children = (
-				4D7FD58B1BC2C44C00C340EB /* AppDelegate.h */,
-				4D7FD58C1BC2C44C00C340EB /* AppDelegate.m */,
-				4D7FD58D1BC2C44C00C340EB /* OpenGLController.h */,
-				4D7FD58E1BC2C44C00C340EB /* OpenGLController.m */,
-				4D7FD5801BC2BBF500C340EB /* castleiosappglue.h */,
+				84DEEDED1E9D7B3800A9228C /* AppDelegate.h */,
+				84DEEDEE1E9D7B3800A9228C /* AppDelegate.m */,
+				84DEEDEF1E9D7B3800A9228C /* main.m */,
+				84DEEDF51E9D7B8600A9228C /* castleiosappglue.h */,
+				84DEEDF01E9D7B3800A9228C /* OpenGLController.h */,
+				84DEEDF11E9D7B3800A9228C /* OpenGLController.m */,
 				4D629E091916B0EB0082689B /* Images.xcassets */,
 				4D629DFE1916B0EB0082689B /* Supporting Files */,
 			);
@@ -111,7 +112,6 @@
 		4D629DFE1916B0EB0082689B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4D7FD5891BC2C43400C340EB /* main.m */,
 				4D629DFF1916B0EB0082689B /* Darkest-Info.plist */,
 				4D629E001916B0EB0082689B /* InfoPlist.strings */,
 				4D629E051916B0EB0082689B /* Darkest-Prefix.pch */,
@@ -145,7 +145,7 @@
 		4D629DEC1916B0EA0082689B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Jan Adamec";
 			};
 			buildConfigurationList = 4D629DEF1916B0EA0082689B /* Build configuration list for PBXProject "Darkest" */;
@@ -183,9 +183,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4D7FD5901BC2C44C00C340EB /* OpenGLController.m in Sources */,
-				4D7FD58F1BC2C44C00C340EB /* AppDelegate.m in Sources */,
-				4D7FD58A1BC2C43400C340EB /* main.m in Sources */,
+				84DEEDF21E9D7B3800A9228C /* AppDelegate.m in Sources */,
+				84DEEDF31E9D7B3800A9228C /* main.m in Sources */,
+				84DEEDF41E9D7B3800A9228C /* OpenGLController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,7 +207,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -222,6 +221,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -248,7 +248,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv7;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -283,7 +282,6 @@
 		4D629E211916B0EB0082689B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -294,6 +292,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roomarranger.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
@@ -303,7 +302,6 @@
 		4D629E221916B0EB0082689B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -314,6 +312,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.roomarranger.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "armv7 arm64";
 				WRAPPER_EXTENSION = app;
