@@ -16,10 +16,10 @@ FPC_ARM64_COMPILER="fpc -Paarch64"
 FPC_COMMON="-Cn -WP5.1 ${CASTLE_FPC_OPTIONS:-} @castle-fpc.cfg -dCASTLE_WINDOW_LIBRARY"
 OBJECT_FILE_DIR_normal="../darkest-before-dawn/ios"
 PROJECT_DIR="."
-OUTPUT_SIM="$OBJECT_FILE_DIR_normal/out-iphonesim"
-OUTPUT_ARM="$OBJECT_FILE_DIR_normal/out-armv7"
-OUTPUT_SIM64="$OBJECT_FILE_DIR_normal/out-iphonesim64"
-OUTPUT_ARM64="$OBJECT_FILE_DIR_normal/out-arm64"
+OUTPUT_SIM="$OBJECT_FILE_DIR_normal/ios-output/iphonesim"
+OUTPUT_ARM="$OBJECT_FILE_DIR_normal/ios-output/armv7"
+OUTPUT_SIM64="$OBJECT_FILE_DIR_normal/ios-output/iphonesim64"
+OUTPUT_ARM64="$OBJECT_FILE_DIR_normal/ios-output/arm64"
 FPC_CONFIG="-dDEBUG"
 
 SIM_LIB=$OUTPUT_SIM/$EXECUTABLE_NAME
@@ -30,9 +30,7 @@ ARM64_LIB=$OUTPUT_ARM64/$EXECUTABLE_NAME
 # compile for simulator
 if [ $COMPILE_SIM -eq 1 ]
 then
-  if [ ! -d "$OUTPUT_SIM" ]; then
-    mkdir $OUTPUT_SIM
-  fi
+  mkdir -p $OUTPUT_SIM
   OUT_FILES="-FU'$OUTPUT_SIM' -o'$SIM_LIB'"
   CMD_LINE="$FPC_SIM_COMPILER -Tiphonesim $FPC_COMMON $FPC_CONFIG $OUT_FILES '$FPC_MAIN_FILE'"
   echo "echo " $CMD_LINE >>ppccmd.sh
@@ -42,9 +40,7 @@ then
   echo $CMD_LINE >>ppccmd.sh
 
 # 64 bit
-  if [ ! -d "$OUTPUT_SIM64" ]; then
-    mkdir $OUTPUT_SIM64
-  fi
+  mkdir -p $OUTPUT_SIM64
   OUT_FILES="-FU'$OUTPUT_SIM64' -o'$SIM64_LIB'"
   CMD_LINE="$FPC_SIM64_COMPILER -Tiphonesim $FPC_COMMON $FPC_CONFIG $OUT_FILES '$FPC_MAIN_FILE'"
   echo "echo " $CMD_LINE >>ppccmd.sh
@@ -57,9 +53,7 @@ fi
 # compile for armv7
 if [ $COMPILE_ARM -eq 1 ]
 then
-  if [ ! -d "$OUTPUT_ARM" ]; then
-    mkdir $OUTPUT_ARM
-  fi
+  mkdir -p $OUTPUT_ARM
   OUT_FILES="-FU'$OUTPUT_ARM' -o'$ARM_LIB'"
   CMD_LINE="$FPC_ARM_COMPILER -Cparmv7 -Cfvfpv3 $FPC_COMMON $FPC_CONFIG $OUT_FILES '$FPC_MAIN_FILE'"
   echo "echo " $CMD_LINE >>ppccmd.sh
@@ -69,9 +63,7 @@ then
   echo $CMD_LINE >>ppccmd.sh
 
 #64 bit
-  if [ ! -d "$OUTPUT_ARM64" ]; then
-    mkdir $OUTPUT_ARM64
-  fi
+  mkdir -p $OUTPUT_ARM64
   OUT_FILES="-FU'$OUTPUT_ARM64' -o'$ARM64_LIB'"
   CMD_LINE="$FPC_ARM64_COMPILER -dCPUARM64 $FPC_COMMON $FPC_CONFIG $OUT_FILES '$FPC_MAIN_FILE'"
   echo "echo " $CMD_LINE >>ppccmd.sh
