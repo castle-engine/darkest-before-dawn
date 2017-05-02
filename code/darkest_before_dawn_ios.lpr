@@ -15,6 +15,7 @@
 
 { Library to run the game on iOS. }
 {$mode objfpc}{$H+}
+library darkest_before_dawn_ios;
 
 uses Game, CastleWindow;
 
