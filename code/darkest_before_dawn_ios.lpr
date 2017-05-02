@@ -17,7 +17,7 @@
 {$mode objfpc}{$H+}
 library darkest_before_dawn_ios;
 
-uses Game, CastleWindow;
+uses Math, CastleWindow, Game;
 
 exports
   CGEApp_Open,
