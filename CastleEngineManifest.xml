@@ -4,10 +4,14 @@
   qualified_name="net.sourceforge.castleengine.darkestbeforedawn"
   executable_name="darkest_before_dawn_standalone"
   standalone_source="code/darkest_before_dawn_standalone.lpr"
-  android_source="code/darkest_before_dawn.lpr"
-  ios_source="code/darkest_before_dawn_ios.lpr"
+  game_units="Game"
   screen_orientation="landscape">
   <version value="1.4.0" code="13" />
+  <compiler_options>
+    <search_paths>
+      <path value="code/" />
+    </search_paths>
+  </compiler_options>
   <icons>
     <icon path="store-graphics/icon-2-wersjabezksiezyca.png" />
   </icons>
