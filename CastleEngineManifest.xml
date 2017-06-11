@@ -7,6 +7,10 @@
   game_units="Game"
   screen_orientation="landscape">
   <version value="1.4.0" code="13" />
+  <launch_images>
+    <image path="store-graphics/ios-launch-iphone-portrait.png" />
+    <image path="store-graphics/ios-launch-ipad-landspace.png" />
+  </launch_images>
   <compiler_options>
     <search_paths>
       <path value="code/" />
