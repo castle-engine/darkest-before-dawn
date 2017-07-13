@@ -18,7 +18,8 @@ unit GameLevels;
 
 interface
 
-uses Classes, CastleLevels, Castle3D, CastleScene, DOM, FGL, CastleShapes,
+uses Classes, DOM, Generics.Collections,
+  CastleLevels, Castle3D, CastleScene, CastleShapes,
   CastleVectors, X3DNodes, CastleBoxes, X3DFields;
 
 type
@@ -37,7 +38,7 @@ type
           const AnAchievementId: string = '');
         procedure Update;
       end;
-      TElevatorList = specialize TFPGObjectList<TElevator>;
+      TElevatorList = specialize TObjectList<TElevator>;
 
     var
       Elevators: TElevatorList;
