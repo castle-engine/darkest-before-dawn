@@ -53,7 +53,8 @@ procedure GameStart;
 
 implementation
 
-uses SysUtils, CastleControls, CastleUIControls, CastleVectors,
+uses SysUtils, Math,
+  CastleControls, CastleUIControls, CastleVectors,
   CastleColors, CastleFilesUtils, CastleLog, CastleSceneCore, CastleImages,
   CastleResources, CastleGLUtils, CastleUtils, CastleRectangles, CastleCameras,
   CastleSceneManager, X3DLoad, CastleGLImages, GameOptions,
