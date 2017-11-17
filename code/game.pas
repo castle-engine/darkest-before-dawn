@@ -28,7 +28,7 @@ procedure Start(AOptions: boolean);
 implementation
 
 uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
-  CastleControls, CastlePrecalculatedAnimation, CastleGLImages, CastleConfig,
+  CastleControls, CastleGLImages, CastleConfig,
   CastleImages, CastleFilesUtils, CastleKeysMouse, CastleUtils,
   GameOptions, GamePlay, GameGooglePlayGames, GameAds;
 
