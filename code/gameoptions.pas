@@ -225,7 +225,7 @@ const
   Margin = 8;
 var
   CurrentBottom, OptionsHeight, QualityBottom, QualityLeft,
-    GammaBottom, GammaLeft, OptionsWidth: Integer;
+    GammaBottom, GammaLeft, OptionsWidth: Single;
   QB: TQualityButton;
   GB: TGammaButton;
 begin
@@ -234,12 +234,12 @@ begin
     OptionsHeight += QB.Rect.Height + Margin;
   OptionsHeight += PlayButton.Rect.Height;
 
-  CurrentBottom := (Window.Height + OptionsHeight) div 2;
+  CurrentBottom := (Window.Height + OptionsHeight) / 2;
 
   OptionsWidth :=
     TQualityButton.Buttons[qAverage].Rect.Width + Margin * 2 +
     TGammaButton.Buttons[gAverage].Rect.Width;
-  QualityLeft := (Window.Width - OptionsWidth) div 2;
+  QualityLeft := (Window.Width - OptionsWidth) / 2;
   GammaLeft := QualityLeft + TQualityButton.Buttons[qAverage].Rect.Width + Margin * 2;
 
   CurrentBottom -= PlayButton.Rect.Height;
