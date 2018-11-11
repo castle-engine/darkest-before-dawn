@@ -17,11 +17,13 @@ pipeline {
         sh 'castle-engine package --os=linux --cpu=x86_64 --verbose'
       }
     }
-    stage('Build Mobile') {
-      steps {
-        sh 'castle-engine package --os=android --cpu=arm --verbose'
-      }
-    }
+    // TODO: Fix Jenkins + Docker to enable building
+    // on Android with Heyzap and related (e.g. FB) SDKs.
+    // stage('Build Mobile') {
+    //   steps {
+    //     sh 'castle-engine package --os=android --cpu=arm --verbose'
+    //   }
+    // }
   }
   post {
     success {
