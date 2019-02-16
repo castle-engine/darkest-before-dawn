@@ -23,7 +23,7 @@
     <include path="README.txt" />
     <include path="COPYING.GPL2.txt" />
   </package>
-  <android project_type="integrated" min_sdk_version="11">
+  <android project_type="integrated">
     <components>
       <component name="google_play_services" />
       <component name="google_play_games">
