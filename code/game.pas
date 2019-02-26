@@ -70,8 +70,7 @@ end;
 
 procedure ApplicationTimer;
 begin
-  WritelnLog('FPS', '%f (real : %f)',
-    [Window.Fps.FrameTime, Window.Fps.RealTime]);
+  WritelnLog('FPS', '%s', [Window.Fps.ToString]);
 end;
 
 procedure WindowResize(Container: TUIContainer);

@@ -70,7 +70,7 @@ const
   UIMargin = 10;
 
 type
-  TGame2DControls = class(TUIControl)
+  TGame2DControls = class(TCastleUserInterface)
   public
     procedure Render; override;
   end;
@@ -85,12 +85,12 @@ begin
     GLFadeRectangleDark(ParentRect, Player.FadeOutColor, Player.FadeOutIntensity);
 
   R := Rectangle(UIMargin, UIMargin, 40, 100);
-  DrawRectangle(R.Grow(2), Vector4Single(1.0, 0.5, 0.5, 0.2));
+  DrawRectangle(R.Grow(2), Vector4(1.0, 0.5, 0.5, 0.2));
   if not Player.Dead then
   begin
     R.Height := Clamped(Round(
       MapRange(Player.Life, 0, Player.MaxLife, 0, R.Height)), 0, R.Height);
-    DrawRectangle(R, Vector4Single(1, 0, 0, 0.9));
+    DrawRectangle(R, Vector4(1, 0, 0, 0.9));
   end;
 end;
 
@@ -128,7 +128,7 @@ function TGame.CreatureExists(const Creature: TCreature): boolean;
 const
   DistanceToActivateCreatures = 100.0;
 begin
-  Result := PointsDistanceSqr(Creature.Position, Player.Position) <=
+  Result := PointsDistanceSqr(Creature.Translation, Player.Translation) <=
     Sqr(DistanceToActivateCreatures);
 end;
 
@@ -139,23 +139,22 @@ begin
   SceneManager := Window.SceneManager;
 
   //Resources.LoadFromFiles; // cannot search recursively in Android assets
-  Resources.AddFromFile(ApplicationData('creatures/light/resource.xml'));
+  Resources.AddFromFile('castle-data:/creatures/light/resource.xml');
   ResourceHarpy := Resources.FindName('Harpy') as TWalkAttackCreatureResource;
 
   //Levels.LoadFromFiles; // cannot search recursively in Android assets
-  Levels.AddFromFile(ApplicationData('level/1/level.xml'));
+  Levels.AddFromFile('castle-data:/level/1/level.xml');
 
   RestartButton := TRestartButton.Create(Application);
   RestartButton.Caption := '';
-  RestartButton.Image := LoadImage(ApplicationData('ui/restart.png'));
-  RestartButton.OwnsImage := true;
+  RestartButton.Image.URL := 'castle-data:/ui/restart.png';
   Window.Controls.InsertFront(RestartButton);
 
   Game2DControls := TGame2DControls.Create(Application);
   Window.Controls.InsertFront(Game2DControls);
 
   GoingUpImage := TCastleImageControl.Create(Application);
-  GoingUpImage.URL := ApplicationData('ui/going_up.png');
+  GoingUpImage.URL := 'castle-data:/ui/going_up.png';
   Window.Controls.InsertFront(GoingUpImage);
 
   { Disable some default input shortcuts defined by CastleSceneManager.
@@ -220,7 +219,7 @@ begin
   SceneManager.LoadLevel('1');
 
   { just for test, load 3D model without the CastleLevels stuff }
-  // Window.Load(ApplicationData('level/1/level1_final.x3dv'));
+  // Window.Load('castle-data:/level/1/level1_final.x3dv');
   // Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
   // Window.MainScene.ProcessEvents := true;
 
@@ -255,7 +254,7 @@ begin
   begin
     Window.TouchInterface := AliveTouchInterface;
     Player.Life := Min(Player.MaxLife,
-      Player.Life + Window.Fps.UpdateSecondsPassed * RegenerateSpeed);
+      Player.Life + Window.Fps.SecondsPassed * RegenerateSpeed);
   end else
     Window.TouchInterface := tiNone;
 end;

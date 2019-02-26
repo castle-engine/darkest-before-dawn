@@ -143,7 +143,7 @@ end;
 { Options globals ------------------------------------------------------------ }
 
 var
-  OptionsControls: TUIControlList;
+  OptionsControls: TCastleUserInterfaceList;
   QualityTitle, GammaTitle: TCastleImageControl;
 
 procedure OptionsInitialize(Window: TCastleWindow);
@@ -154,23 +154,22 @@ var
   GB: TGammaButton;
   Background: TCastleImageControl;
 begin
-  OptionsControls := TUIControlList.Create(false);
+  OptionsControls := TCastleUserInterfaceList.Create(false);
 
   Background := TCastleImageControl.Create(Application);
-  Background.URL := ApplicationData('ui/options_bg.png');
+  Background.URL := 'castle-data:/ui/options_bg.png';
   Background.Stretch := true;
   Background.FullSize := true;
   Window.Controls.InsertFront(Background);
   OptionsControls.InsertFront(Background);
 
   PlayButton := TPlayButton.Create(Application);
-  PlayButton.Image := LoadImage(ApplicationData('ui/play.png'));
-  PlayButton.OwnsImage := true;
+  PlayButton.Image.URL := 'castle-data:/ui/play.png';
   Window.Controls.InsertFront(PlayButton);
   OptionsControls.InsertFront(PlayButton);
 
   QualityTitle := TCastleImageControl.Create(Application);
-  QualityTitle.URL := ApplicationData('ui/quality_title.png');
+  QualityTitle.URL := 'castle-data:/ui/quality_title.png';
   Window.Controls.InsertFront(QualityTitle);
   OptionsControls.InsertFront(QualityTitle);
 
@@ -179,8 +178,7 @@ begin
     QB := TQualityButton.Create(Application);
     QB.Value := Q;
     QB.Pressed := Q = Quality;
-    QB.Image := LoadImage(ApplicationData('ui/quality_' + QualityNames[Q] + '.png'));
-    QB.OwnsImage := true;
+    QB.Image.URL := 'castle-data:/ui/quality_' + QualityNames[Q] + '.png';
     QB.ImageMargin := 0;
 
     Window.Controls.InsertFront(QB);
@@ -189,7 +187,7 @@ begin
   end;
 
   GammaTitle := TCastleImageControl.Create(Application);
-  GammaTitle.URL := ApplicationData('ui/gamma_title.png');
+  GammaTitle.URL := 'castle-data:/ui/gamma_title.png';
   Window.Controls.InsertFront(GammaTitle);
   OptionsControls.InsertFront(GammaTitle);
 
@@ -198,8 +196,7 @@ begin
     GB := TGammaButton.Create(Application);
     GB.Value := G;
     GB.Pressed := G = Gamma;
-    GB.Image := LoadImage(ApplicationData('ui/gamma_' + GammaNames[G] + '.png'));
-    GB.OwnsImage := true;
+    GB.Image.URL := 'castle-data:/ui/gamma_' + GammaNames[G] + '.png';
     GB.ImageMargin := 0;
 
     Window.Controls.InsertFront(GB);
@@ -211,7 +208,7 @@ end;
 procedure OptionsUpdate(Window: TCastleWindow);
 var
   I: Integer;
-  C: TUIControl;
+  C: TCastleUserInterface;
 begin
   for I := 0 to OptionsControls.Count - 1 do
   begin
@@ -229,45 +226,45 @@ var
   QB: TQualityButton;
   GB: TGammaButton;
 begin
-  OptionsHeight := QualityTitle.Rect.Height + Margin * 2;
+  OptionsHeight := QualityTitle.EffectiveHeight + Margin * 2;
   for QB in TQualityButton.Buttons do
-    OptionsHeight += QB.Rect.Height + Margin;
-  OptionsHeight += PlayButton.Rect.Height;
+    OptionsHeight += QB.EffectiveHeight + Margin;
+  OptionsHeight += PlayButton.EffectiveHeight;
 
   CurrentBottom := (Window.Height + OptionsHeight) / 2;
 
   OptionsWidth :=
-    TQualityButton.Buttons[qAverage].Rect.Width + Margin * 2 +
-    TGammaButton.Buttons[gAverage].Rect.Width;
+    TQualityButton.Buttons[qAverage].EffectiveWidth + Margin * 2 +
+    TGammaButton.Buttons[gAverage].EffectiveWidth;
   QualityLeft := (Window.Width - OptionsWidth) / 2;
-  GammaLeft := QualityLeft + TQualityButton.Buttons[qAverage].Rect.Width + Margin * 2;
+  GammaLeft := QualityLeft + TQualityButton.Buttons[qAverage].EffectiveWidth + Margin * 2;
 
-  CurrentBottom -= PlayButton.Rect.Height;
+  CurrentBottom -= PlayButton.EffectiveHeight;
   PlayButton.Bottom := CurrentBottom;
   PlayButton.Anchor(hpMiddle);
 
   QualityBottom := CurrentBottom;
-  QualityBottom -= QualityTitle.Rect.Height + Margin * 3;
+  QualityBottom -= QualityTitle.EffectiveHeight + Margin * 3;
   QualityTitle.Bottom := QualityBottom;
   QualityTitle.Left := QualityLeft;
   QualityBottom += Margin; // smaller margin from 1st button
 
   for QB in TQualityButton.Buttons do
   begin
-    QualityBottom -= QB.Rect.Height + Margin;
+    QualityBottom -= QB.EffectiveHeight + Margin;
     QB.Bottom := QualityBottom;
     QB.Left := QualityLeft;
   end;
 
   GammaBottom := CurrentBottom;
-  GammaBottom -= GammaTitle.Rect.Height + Margin * 3;
+  GammaBottom -= GammaTitle.EffectiveHeight + Margin * 3;
   GammaTitle.Bottom := GammaBottom;
   GammaTitle.Left := GammaLeft;
   GammaBottom += Margin; // smaller margin from 1st button
 
   for GB in TGammaButton.Buttons do
   begin
-    GammaBottom -= GB.Rect.Height + Margin;
+    GammaBottom -= GB.EffectiveHeight + Margin;
     GB.Bottom := GammaBottom;
     GB.Left := GammaLeft;
   end;

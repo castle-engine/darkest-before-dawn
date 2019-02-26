@@ -24,12 +24,12 @@
     <include path="COPYING.GPL2.txt" />
   </package>
   <android project_type="integrated">
-    <components>
-      <component name="google_play_services" />
-      <component name="google_play_games">
+    <services>
+      <service name="google_play_services" />
+      <service name="google_play_games">
         <parameter key="app_id" value="1020561970941" />
-      </component>
-      <component name="heyzap" />
-    </components>
+      </service>
+      <service name="heyzap" />
+    </services>
   </android>
 </project>
