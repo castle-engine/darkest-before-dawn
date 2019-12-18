@@ -19,7 +19,7 @@ unit GameLevels;
 interface
 
 uses Classes, DOM, Generics.Collections,
-  CastleLevels, Castle3D, CastleScene, CastleShapes,
+  CastleLevels, Castle3D, CastleScene, CastleShapes, CastleResources,
   CastleVectors, X3DNodes, CastleBoxes, X3DFields;
 
 type
@@ -33,7 +33,7 @@ type
         FName: string;
         FAchievementId: string;
       public
-        constructor Create(const AName: string; const World: T3DWorld;
+        constructor Create(const AName: string; const LevelProperties: TLevelProperties;
           const Owner: TLevel1; const Height: Single;
           const AnAchievementId: string = '');
         procedure Update;
@@ -42,13 +42,14 @@ type
 
     var
       Elevators: TElevatorList;
-      Lights: TVector3SingleList;
+      Lights: TVector3List;
       BrightnessDistanceFactor, BackgroundMorning: TSFFloat;
-      MorningEmpty, MorningFull: TVector3Single;
+      MorningEmpty, MorningFull: TVector3;
       GameWinBox: TBox3D;
   public
-    constructor Create(AOwner: TComponent; AWorld: T3DWorld;
-      MainScene: TCastleScene; DOMElement: TDOMElement); override;
+    constructor Create(const AOwner: TComponent;
+      const ALevelProperties: TLevelProperties;
+      const MainScene: TCastleScene; const DOMElement: TDOMElement); override;
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
     function Placeholder(const Shape: TShape;
@@ -63,7 +64,7 @@ uses SysUtils,
 
 { TLevel1.TElevator ---------------------------------------------------------- }
 
-constructor TLevel1.TElevator.Create(const AName: string; const World: T3DWorld;
+constructor TLevel1.TElevator.Create(const AName: string; const LevelProperties: TLevelProperties;
   const Owner: TLevel1; const Height: Single; const AnAchievementId: string);
 begin
   inherited Create;
@@ -76,15 +77,15 @@ begin
   Moving := T3DLinearMoving.Create(Owner);
   Moving.Add(Scene);
   Moving.MoveTime := Height / 3.0;
-  Moving.TranslationEnd := Vector3Single(0, Height, 0);
-  World.Add(Moving);
+  Moving.TranslationEnd := Vector3(0, Height, 0);
+  LevelProperties.TransformRoot.Add(Moving);
 end;
 
 procedure TLevel1.TElevator.Update;
 var
   PlayerInside: boolean;
 begin
-  PlayerInside := Scene.BoundingBox.PointInside2D(Player.Position, 1);
+  PlayerInside := Scene.BoundingBox.Contains2D(Player.Position, 1);
   if Moving.CompletelyBeginPosition and PlayerInside then
   begin
     Moving.GoEndPosition;
@@ -104,23 +105,24 @@ end;
 
 { TLevel1 -------------------------------------------------------------------- }
 
-constructor TLevel1.Create(AOwner: TComponent; AWorld: T3DWorld;
-  MainScene: TCastleScene; DOMElement: TDOMElement);
+constructor TLevel1.Create(const AOwner: TComponent;
+  const ALevelProperties: TLevelProperties;
+  const MainScene: TCastleScene; const DOMElement: TDOMElement);
 var
   GammaVal: Single;
   BrightnessInvGamma: TSFFloat;
 begin
   inherited;
   Elevators := TElevatorList.Create(true);
-  Elevators.Add(TElevator.Create('stages/tube/elevator_1.x3d'    , AWorld, Self, 10, AchievementStage1));
-  Elevators.Add(TElevator.Create('stages/street/elevator_1.x3d'  , AWorld, Self, 10, AchievementStage2));
-  Elevators.Add(TElevator.Create('stages/street/elevator_2.x3d'  , AWorld, Self, 10, AchievementStage2));
-  Elevators.Add(TElevator.Create('stages/outdoors/elevator_1.x3d', AWorld, Self, 10, AchievementStage3));
-  Elevators.Add(TElevator.Create('stages/above/elevator_1.x3d'   , AWorld, Self, 10, AchievementStage4));
-  Elevators.Add(TElevator.Create('stages/above/elevator_2.x3d'   , AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/above/elevator_3.x3d'   , AWorld, Self, 10));
-  Elevators.Add(TElevator.Create('stages/above/elevator_4.x3d'   , AWorld, Self, 10));
-  Lights := TVector3SingleList.Create;
+  Elevators.Add(TElevator.Create('stages/tube/elevator_1.x3d'    , ALevelProperties, Self, 10, AchievementStage1));
+  Elevators.Add(TElevator.Create('stages/street/elevator_1.x3d'  , ALevelProperties, Self, 10, AchievementStage2));
+  Elevators.Add(TElevator.Create('stages/street/elevator_2.x3d'  , ALevelProperties, Self, 10, AchievementStage2));
+  Elevators.Add(TElevator.Create('stages/outdoors/elevator_1.x3d', ALevelProperties, Self, 10, AchievementStage3));
+  Elevators.Add(TElevator.Create('stages/above/elevator_1.x3d'   , ALevelProperties, Self, 10, AchievementStage4));
+  Elevators.Add(TElevator.Create('stages/above/elevator_2.x3d'   , ALevelProperties, Self, 10));
+  Elevators.Add(TElevator.Create('stages/above/elevator_3.x3d'   , ALevelProperties, Self, 10));
+  Elevators.Add(TElevator.Create('stages/above/elevator_4.x3d'   , ALevelProperties, Self, 10));
+  Lights := TVector3List.Create;
 
   BrightnessDistanceFactor := MainScene.Field('BrightnessEffect', 'distance_factor') as TSFFloat;
   BackgroundMorning := MainScene.Field('BackgroundEffect', 'morning') as TSFFloat;
@@ -147,7 +149,7 @@ procedure TLevel1.Update(const SecondsPassed: Single; var RemoveMe: TRemoveType)
 var
   E: TElevator;
   DistanceToClosestLight, S, DistanceFactor, MorningFactor: Single;
-  PlayerPos, Projected: TVector3Single;
+  PlayerPos, Projected: TVector3;
   I: Integer;
 const
   DistanceToSecurity = 4.0;
@@ -190,7 +192,7 @@ begin
   ClampVar(MorningFactor, 0, 1);
   BackgroundMorning.Send(MorningFactor);
 
-  if GameWinBox.PointInside(PlayerPos) then
+  if GameWinBox.Contains(PlayerPos) then
   begin
     if not GameWin then
     begin
