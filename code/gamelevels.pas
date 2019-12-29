@@ -19,8 +19,8 @@ unit GameLevels;
 interface
 
 uses Classes, DOM, Generics.Collections,
-  CastleLevels, Castle3D, CastleScene, CastleShapes, CastleResources,
-  CastleVectors, X3DNodes, CastleBoxes, X3DFields;
+  CastleLevels, CastleTransform, CastleTransformExtra, CastleScene, CastleShapes,
+  CastleResources, CastleVectors, X3DNodes, CastleBoxes, X3DFields;
 
 type
   TLevel1 = class(TLevelLogic)
@@ -28,7 +28,7 @@ type
     type
       TElevator = class
       strict private
-        Moving: T3DLinearMoving;
+        Moving: TCastleLinearMoving;
         Scene: TCastleScene;
         FName: string;
         FAchievementId: string;
@@ -74,11 +74,11 @@ begin
 
   Scene := Owner.LoadLevelScene(ApplicationData('level/1/' + FName), true);
 
-  Moving := T3DLinearMoving.Create(Owner);
+  Moving := TCastleLinearMoving.Create(Owner);
   Moving.Add(Scene);
   Moving.MoveTime := Height / 3.0;
   Moving.TranslationEnd := Vector3(0, Height, 0);
-  LevelProperties.TransformRoot.Add(Moving);
+  LevelProperties.RootTransform.Add(Moving);
 end;
 
 procedure TLevel1.TElevator.Update;
