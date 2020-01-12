@@ -33,7 +33,7 @@ type
         FName: string;
         FAchievementId: string;
       public
-        constructor Create(const AName: string; const LevelProperties: TLevelProperties;
+        constructor Create(const AName: string; const Level: TAbstractLevel;
           const Owner: TLevel1; const Height: Single;
           const AnAchievementId: string = '');
         procedure Update;
@@ -48,7 +48,7 @@ type
       GameWinBox: TBox3D;
   public
     constructor Create(const AOwner: TComponent;
-      const ALevelProperties: TLevelProperties;
+      const ALevel: TAbstractLevel;
       const MainScene: TCastleScene; const DOMElement: TDOMElement); override;
     destructor Destroy; override;
     procedure Update(const SecondsPassed: Single; var RemoveMe: TRemoveType); override;
@@ -64,7 +64,7 @@ uses SysUtils,
 
 { TLevel1.TElevator ---------------------------------------------------------- }
 
-constructor TLevel1.TElevator.Create(const AName: string; const LevelProperties: TLevelProperties;
+constructor TLevel1.TElevator.Create(const AName: string; const Level: TAbstractLevel;
   const Owner: TLevel1; const Height: Single; const AnAchievementId: string);
 begin
   inherited Create;
@@ -72,13 +72,13 @@ begin
   FName := AName;
   FAchievementId := AnAchievementId;
 
-  Scene := Owner.LoadLevelScene(ApplicationData('level/1/' + FName), true);
+  Scene := Owner.LoadLevelScene('castle-data:/level/1/' + FName, true);
 
   Moving := TCastleLinearMoving.Create(Owner);
   Moving.Add(Scene);
   Moving.MoveTime := Height / 3.0;
   Moving.TranslationEnd := Vector3(0, Height, 0);
-  LevelProperties.RootTransform.Add(Moving);
+  Level.RootTransform.Add(Moving);
 end;
 
 procedure TLevel1.TElevator.Update;
@@ -106,7 +106,7 @@ end;
 { TLevel1 -------------------------------------------------------------------- }
 
 constructor TLevel1.Create(const AOwner: TComponent;
-  const ALevelProperties: TLevelProperties;
+  const ALevel: TAbstractLevel;
   const MainScene: TCastleScene; const DOMElement: TDOMElement);
 var
   GammaVal: Single;
@@ -114,14 +114,14 @@ var
 begin
   inherited;
   Elevators := TElevatorList.Create(true);
-  Elevators.Add(TElevator.Create('stages/tube/elevator_1.x3d'    , ALevelProperties, Self, 10, AchievementStage1));
-  Elevators.Add(TElevator.Create('stages/street/elevator_1.x3d'  , ALevelProperties, Self, 10, AchievementStage2));
-  Elevators.Add(TElevator.Create('stages/street/elevator_2.x3d'  , ALevelProperties, Self, 10, AchievementStage2));
-  Elevators.Add(TElevator.Create('stages/outdoors/elevator_1.x3d', ALevelProperties, Self, 10, AchievementStage3));
-  Elevators.Add(TElevator.Create('stages/above/elevator_1.x3d'   , ALevelProperties, Self, 10, AchievementStage4));
-  Elevators.Add(TElevator.Create('stages/above/elevator_2.x3d'   , ALevelProperties, Self, 10));
-  Elevators.Add(TElevator.Create('stages/above/elevator_3.x3d'   , ALevelProperties, Self, 10));
-  Elevators.Add(TElevator.Create('stages/above/elevator_4.x3d'   , ALevelProperties, Self, 10));
+  Elevators.Add(TElevator.Create('stages/tube/elevator_1.x3d'    , ALevel, Self, 10, AchievementStage1));
+  Elevators.Add(TElevator.Create('stages/street/elevator_1.x3d'  , ALevel, Self, 10, AchievementStage2));
+  Elevators.Add(TElevator.Create('stages/street/elevator_2.x3d'  , ALevel, Self, 10, AchievementStage2));
+  Elevators.Add(TElevator.Create('stages/outdoors/elevator_1.x3d', ALevel, Self, 10, AchievementStage3));
+  Elevators.Add(TElevator.Create('stages/above/elevator_1.x3d'   , ALevel, Self, 10, AchievementStage4));
+  Elevators.Add(TElevator.Create('stages/above/elevator_2.x3d'   , ALevel, Self, 10));
+  Elevators.Add(TElevator.Create('stages/above/elevator_3.x3d'   , ALevel, Self, 10));
+  Elevators.Add(TElevator.Create('stages/above/elevator_4.x3d'   , ALevel, Self, 10));
   Lights := TVector3List.Create;
 
   BrightnessDistanceFactor := MainScene.Field('BrightnessEffect', 'distance_factor') as TSFFloat;
