@@ -213,7 +213,6 @@ begin
   if Player <> nil then
     FreeAndNil(Player); // SceneManager references will be cleared automatically
   Player := TPlayer.Create(SceneManager);
-  SceneManager.Items.Add(Player);
   SceneManager.Player := Player;
 
   SceneManager.LoadLevel('1');
