@@ -85,7 +85,7 @@ procedure TLevel1.TElevator.Update;
 var
   PlayerInside: boolean;
 begin
-  PlayerInside := Scene.BoundingBox.Contains2D(Player.Position, 1);
+  PlayerInside := Scene.BoundingBox.Contains2D(Player.Translation, 1);
   if Moving.CompletelyBeginPosition and PlayerInside then
   begin
     Moving.GoEndPosition;
@@ -160,7 +160,7 @@ begin
   for E in Elevators do
     E.Update;
 
-  PlayerPos := Player.Position;
+  PlayerPos := Player.Translation;
 
   { calculate and use distance to the nearest light source }
 
@@ -210,19 +210,19 @@ begin
 
   if IsPrefix('LightPos', PlaceholderName) then
   begin
-    Lights.Add(Shape.BoundingBox.Middle);
+    Lights.Add(Shape.BoundingBox.Center);
     Exit(true);
   end;
 
   if PlaceholderName = 'MorningEmpty' then
   begin
-    MorningEmpty := Shape.BoundingBox.Middle;
+    MorningEmpty := Shape.BoundingBox.Center;
     Exit(true);
   end;
 
   if PlaceholderName = 'MorningFull' then
   begin
-    MorningFull := Shape.BoundingBox.Middle;
+    MorningFull := Shape.BoundingBox.Center;
     Exit(true);
   end;
 

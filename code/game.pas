@@ -1,5 +1,5 @@
 {
-  Copyright 2013-2017 Michalis Kamburelis.
+  Copyright 2013-2020 Michalis Kamburelis.
 
   This file is part of "Darkest Before Dawn".
 
@@ -28,8 +28,8 @@ procedure Start(AOptions: boolean);
 implementation
 
 uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
-  CastleControls, CastleGLImages, CastleConfig,
-  CastleImages, CastleFilesUtils, CastleKeysMouse, CastleUtils,
+  CastleControls, CastleGLImages, CastleConfig, CastleApplicationProperties,
+  CastleImages, CastleFilesUtils, CastleKeysMouse, CastleUtils, CastleTransform,
   GameOptions, GamePlay, GameGooglePlayGames, GameAds;
 
 { routines ------------------------------------------------------------------- }
@@ -37,6 +37,8 @@ uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
 { One-time initialization. }
 procedure ApplicationInitialize;
 begin
+  TCastleTransform.DefaultOrientation := otUpYDirectionMinusZ; // suitable for old kanim animations with X3D
+
   InitializeLog;
 
   GooglePlayGames.Initialize;
@@ -104,26 +106,31 @@ end;
 
 procedure WindowPress(Container: TUIContainer; const Event: TInputPressRelease);
 begin
-  if Event.IsKey(K_F5) then
+  if Event.IsKey(keyF5) then
     Window.SaveScreen(FileNameAutoInc(ApplicationName + '_screen_%d.png')) else
-  if Event.IsKey(K_F8) then
+  if Event.IsKey(keyF8) then
   begin
     { test whether close+open of context works Ok. }
     Window.Close(false);
     Window.Open;
   end;
-  if Event.IsKey(K_Escape) then
+  if Event.IsKey(keyEscape) then
     Application.Terminate;
 end;
 
-function MyGetApplicationName: string;
-begin
-  Result := 'darkest_before_dawn';
-end;
-
 initialization
-  { This should be done as early as possible to mark our log lines correctly. }
-  OnGetApplicationName := @MyGetApplicationName;
+  { Set ApplicationName early, as our log uses it.
+    Optionally you could also set ApplicationProperties.Version here. }
+  ApplicationProperties.ApplicationName := 'darkest_before_dawn';
+
+  { Start logging. Do this as early as possible,
+    to log information and eventual warnings during initialization.
+
+    For programs, InitializeLog is not called here.
+    Instead InitializeLog is done by the program main file,
+    after command-line parameters are parsed. }
+  if IsLibrary then
+    InitializeLog;
 
   { initialize Application callbacks }
   Application.OnInitialize := @ApplicationInitialize;

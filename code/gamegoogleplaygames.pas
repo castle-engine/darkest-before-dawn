@@ -18,7 +18,7 @@ unit GameGooglePlayGames;
 
 interface
 
-uses CastleGooglePlayGames;
+uses CastleGameService;
 
 const
   { Achievement codes you get from Google Games developer console. }
@@ -29,14 +29,14 @@ const
   AchievementWin    = 'CgkI_a3v8dkdEAIQBg';
 
 var
-  GooglePlayGames: TGooglePlayGames;
+  GooglePlayGames: TGameService;
 
 implementation
 
 uses SysUtils;
 
 initialization
-  GooglePlayGames := TGooglePlayGames.Create(nil);
+  GooglePlayGames := TGameService.Create(nil);
 finalization
   FreeAndNil(GooglePlayGames);
 end.

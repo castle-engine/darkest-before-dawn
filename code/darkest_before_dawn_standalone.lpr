@@ -13,18 +13,28 @@
   ----------------------------------------------------------------------------
 }
 
-{$apptype GUI}
+{$ifdef MSWINDOWS} {$apptype GUI} {$endif}
 
-{ Main program for a standalone version of the game.
-  This allows you to compile the same game game (in Game unit)
-  as a normal, standalone executable for normal OSes (Linux, Windows, MacOSX...). }
-program darkest_before_dawn_standalone;
+{ This adds icons and version info for Windows,
+  automatically created by "castle-engine compile". }
+{$ifdef CASTLE_AUTO_GENERATED_RESOURCES} {$R castle-auto-generated-resources.res} {$endif}
 
-{$ifdef MSWINDOWS} {$R automatic-windows-resources.res} {$endif MSWINDOWS}
+uses
+  {$ifndef CASTLE_DISABLE_THREADS}
+    {$info Thread support enabled.}
+    {$ifdef UNIX} CThreads, {$endif}
+  {$endif}
+  CastleApplicationProperties, CastleLog, CastleWindow, Game;
 
-uses CastleWindow, Game;
 begin
-  Window.FullScreen := true;
-  Window.ParseParameters;
-  Window.OpenAndRun;
+  ApplicationProperties.Version := '0.1';
+  Application.ParseStandardParameters;
+
+  { On standalone, activate log only after parsing command-line options.
+    This allows to handle --version and --help command-line parameters
+    without any extra output on Unix.
+    This also allows to set --log-file from Application.ParseStandardParameters. }
+  InitializeLog;
+
+  Application.MainWindow.OpenAndRun;
 end.
