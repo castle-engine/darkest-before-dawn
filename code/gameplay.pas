@@ -224,7 +224,7 @@ begin
 
   { SceneManager.LoadLevel always initializes Navigation, always to TCastleWalkNavigation }
   Walk := SceneManager.Navigation as TCastleWalkNavigation;
-  Walk.MouseDraggingHorizontalRotationSpeed := 0.5 / (Window.Dpi / DefaultDPI);
+  Walk.MouseDraggingHorizontalRotationSpeed := TCastleWalkNavigation.DefaultMouseDraggingHorizontalRotationSpeed * 3;
   Walk.MouseDraggingVerticalRotationSpeed := 0;
   Player.EnableNavigationDragging := true;
 end;
