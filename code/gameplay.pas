@@ -31,7 +31,7 @@ unit GamePlay;
 interface
 
 uses CastleWindow, CastlePlayer, CastleLevels, CastleCreatures,
-  CastleWindowTouch;
+  CastleWindowTouch, CastleViewport;
 
 var
   SceneManager: TGameSceneManager; //< same thing as Window.SceneManager
@@ -175,7 +175,7 @@ end;
 
 const
   AliveTouchInterface =
-    {$ifdef TOUCH_INTERFACE} tiCtlWalkDragRotate; {$else} tiNone; {$endif}
+    {$ifdef TOUCH_INTERFACE} tiWalk; {$else} tiNone; {$endif}
     { tiNone;
       For this game, tiNone is too troublesome, as you often mistakenly
       do walk/rotate when you want to do only the other thing.
