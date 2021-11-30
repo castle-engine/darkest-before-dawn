@@ -30,6 +30,7 @@ implementation
 uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
   CastleControls, CastleGLImages, CastleConfig, CastleApplicationProperties,
   CastleImages, CastleFilesUtils, CastleKeysMouse, CastleUtils, CastleTransform,
+  CastleUIControls,
   GameOptions, GamePlay, GameGooglePlayGames, GameAds;
 
 { routines ------------------------------------------------------------------- }
@@ -47,14 +48,10 @@ begin
   Progress.UserInterface := WindowProgressInterface;
 
   { adjust theme }
-  Theme.Images[tiProgressFill] := LoadImage(ApplicationData('ui/theme/ProgressFill.png'));
-  Theme.OwnsImages[tiProgressFill] := true;
-  Theme.Images[tiButtonPressed] := LoadImage(ApplicationData('ui/theme/ButtonPressed.png'));
-  Theme.OwnsImages[tiButtonPressed] := true;
-  Theme.Images[tiButtonFocused] := LoadImage(ApplicationData('ui/theme/ButtonFocused.png'));
-  Theme.OwnsImages[tiButtonFocused] := true;
-  Theme.Images[tiButtonNormal] := LoadImage(ApplicationData('ui/theme/ButtonNormal.png'));
-  Theme.OwnsImages[tiButtonNormal] := true;
+  Theme.ImagesPersistent[tiProgressFill].Url := 'castle-data:/ui/theme/ProgressFill.png';
+  Theme.ImagesPersistent[tiButtonPressed].Url := 'castle-data:/ui/theme/ButtonPressed.png';
+  Theme.ImagesPersistent[tiButtonFocused].Url := 'castle-data:/ui/theme/ButtonFocused.png';
+  Theme.ImagesPersistent[tiButtonNormal].Url := 'castle-data:/ui/theme/ButtonNormal.png';
 
   UserConfig.Load;
 
