@@ -1,5 +1,5 @@
 {
-  Copyright 2013-2017 Michalis Kamburelis.
+  Copyright 2013-2022 Michalis Kamburelis.
 
   This file is part of "Darkest Before Dawn".
 
@@ -31,7 +31,7 @@ unit GamePlay;
 interface
 
 uses CastleWindow, CastlePlayer, CastleLevels, CastleCreatures,
-  CastleWindowTouch, CastleViewport;
+  CastleViewport;
 
 var
   SceneManager: TGameSceneManager; //< same thing as Window.SceneManager
@@ -40,14 +40,14 @@ var
   GameWin: boolean;
   GoingUp: boolean; // set by level logic
 
-procedure PlayInitialize(Window: TCastleWindowTouch);
+procedure PlayInitialize(Window: TCastleWindow);
 
 { Called every frame. Do continous game logic, e.g. do regeneration.
   Update Exists state of our GUI, based on GameOptions.Options value. }
-procedure PlayUpdate(Window: TCastleWindowTouch);
+procedure PlayUpdate(Window: TCastleWindow);
 
 { Resize GUI to current window size. }
-procedure PlayResize(Window: TCastleWindowTouch);
+procedure PlayResize(Window: TCastleWindow);
 
 procedure GameStart;
 
@@ -134,10 +134,8 @@ end;
 
 { Play globals --------------------------------------------------------------- }
 
-procedure PlayInitialize(Window: TCastleWindowTouch);
+procedure PlayInitialize(Window: TCastleWindow);
 begin
-  SceneManager := Window.SceneManager;
-
   //Resources.LoadFromFiles; // cannot search recursively in Android assets
   Resources.AddFromFile('castle-data:/creatures/light/resource.xml');
   ResourceHarpy := Resources.FindName('Harpy') as TWalkAttackCreatureResource;
@@ -229,13 +227,13 @@ begin
   Player.EnableNavigationDragging := true;
 end;
 
-procedure PlayResize(Window: TCastleWindowTouch);
+procedure PlayResize(Window: TCastleWindow);
 begin
   RestartButton.Center;
   GoingUpImage.Center;
 end;
 
-procedure PlayUpdate(Window: TCastleWindowTouch);
+procedure PlayUpdate(Window: TCastleWindow);
 const
   RegenerateSpeed = 1.8; // life points per second you gain
 begin
@@ -251,11 +249,11 @@ begin
 
   if (not Options) and (not Player.Dead) then
   begin
-    Window.TouchInterface := AliveTouchInterface;
+    TouchNavigation.TouchInterface := AliveTouchInterface;
     Player.Life := Min(Player.MaxLife,
       Player.Life + Window.Fps.SecondsPassed * RegenerateSpeed);
   end else
-    Window.TouchInterface := tiNone;
+    TouchNavigation.TouchInterface := tiNone;
 end;
 
 end.

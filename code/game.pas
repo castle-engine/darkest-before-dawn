@@ -1,5 +1,5 @@
 {
-  Copyright 2013-2020 Michalis Kamburelis.
+  Copyright 2013-2022 Michalis Kamburelis.
 
   This file is part of "Darkest Before Dawn".
 
@@ -18,19 +18,20 @@ unit Game;
 
 interface
 
-uses CastleWindowTouch, CastlePlayer, CastleLevels, CastleCreatures;
+uses CastleWindow, CastleViewport, CastleLevels;
 
 var
-  Window: TCastleWindowTouch;
+  Window: TCastleWindow;
+  TouchNavigation: TCastleTouchNavigation;
 
 procedure Start(AOptions: boolean);
 
 implementation
 
-uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
+uses SysUtils, CastleLog, CastleProgress, CastleWindowProgress,
   CastleControls, CastleGLImages, CastleConfig, CastleApplicationProperties,
   CastleImages, CastleFilesUtils, CastleKeysMouse, CastleUtils, CastleTransform,
-  CastleUIControls,
+  CastleUIControls, CastlePlayer, CastleCreatures,
   GameOptions, GamePlay, GameGooglePlayGames, GameAds;
 
 { routines ------------------------------------------------------------------- }
@@ -38,6 +39,16 @@ uses SysUtils, CastleLog, CastleWindow, CastleProgress, CastleWindowProgress,
 { One-time initialization. }
 procedure ApplicationInitialize;
 begin
+  SceneManager := TGameSceneManager.Create(Application);
+  SceneManager.FullSize := true;
+  Window.Controls.InsertFront(SceneManager);
+
+  TouchNavigation := TCastleTouchNavigation.Create(Application);
+  // TouchNavigation.AutoTouchInterface := true; // leave false, GamePlay adjusts TouchNavigation.TouchInterface
+  TouchNavigation.Viewport := SceneManager;
+  TouchNavigation.FullSize := true;
+  SceneManager.InsertFront(TouchNavigation);
+
   TCastleTransform.DefaultOrientation := otUpYDirectionMinusZ; // suitable for old kanim animations with X3D
 
   InitializeLog;
@@ -135,7 +146,7 @@ initialization
   Application.TimerMilisec := 5000;
 
   { create Window and initialize Window callbacks }
-  Window := TCastleWindowTouch.Create(Application);
+  Window := TCastleWindow.Create(Application);
   Application.MainWindow := Window;
   Window.OnResize := @WindowResize;
   Window.OnUpdate := @WindowUpdate;
