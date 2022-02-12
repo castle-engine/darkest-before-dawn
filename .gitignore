@@ -1,6 +1,8 @@
 *.o
 *.ppu
 *~
+*.lps
+darkest_before_dawn
 darkest_before_dawn_standalone
 *.apk
 castle-engine-output
