@@ -3,7 +3,7 @@
   caption="Darkest Before Dawn"
   qualified_name="net.sourceforge.castleengine.darkestbeforedawn"
   executable_name="darkest_before_dawn_standalone"
-  standalone_source="code/darkest_before_dawn_standalone.lpr"
+  standalone_source="darkest_before_dawn_standalone.dpr"
   game_units="Game"
   screen_orientation="landscape">
   <version value="1.4.0" code="13" />

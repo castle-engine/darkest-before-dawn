@@ -78,11 +78,6 @@ begin
   Start(true);
 end;
 
-procedure ApplicationTimer;
-begin
-  WritelnLog('FPS', '%s', [Window.Fps.ToString]);
-end;
-
 procedure WindowResize(Container: TUIContainer);
 begin
   PlayResize(Window);
@@ -131,19 +126,8 @@ initialization
     Optionally you could also set ApplicationProperties.Version here. }
   ApplicationProperties.ApplicationName := 'darkest_before_dawn';
 
-  { Start logging. Do this as early as possible,
-    to log information and eventual warnings during initialization.
-
-    For programs, InitializeLog is not called here.
-    Instead InitializeLog is done by the program main file,
-    after command-line parameters are parsed. }
-  if IsLibrary then
-    InitializeLog;
-
   { initialize Application callbacks }
   Application.OnInitialize := @ApplicationInitialize;
-  Application.OnTimer := @ApplicationTimer;
-  Application.TimerMilisec := 5000;
 
   { create Window and initialize Window callbacks }
   Window := TCastleWindow.Create(Application);
