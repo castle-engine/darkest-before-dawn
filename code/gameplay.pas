@@ -57,7 +57,7 @@ uses SysUtils, Math,
   CastleControls, CastleUIControls, CastleVectors,
   CastleColors, CastleFilesUtils, CastleLog, CastleSceneCore, CastleImages,
   CastleResources, CastleGLUtils, CastleUtils, CastleRectangles, CastleCameras,
-  CastleSceneManager, X3DLoad, CastleGLImages, GameOptions,
+  CastleSceneManager, X3DLoad, CastleGLImages, GameOptions, CastleTransform,
   Game, GameAds,
   GameLevels { use, to run GameLevels initialization, to register level logic };
 
@@ -117,21 +117,6 @@ end;
 var
   RestartButton: TRestartButton;
 
-{ quick creature optimization ------------------------------------------------ }
-
-type
-  TGame = class
-    function CreatureExists(const Creature: TCreature): boolean;
-  end;
-
-function TGame.CreatureExists(const Creature: TCreature): boolean;
-const
-  DistanceToActivateCreatures = 100.0;
-begin
-  Result := PointsDistanceSqr(Creature.Translation, Player.Translation) <=
-    Sqr(DistanceToActivateCreatures);
-end;
-
 { Play globals --------------------------------------------------------------- }
 
 procedure PlayInitialize(Window: TCastleWindow);
@@ -167,8 +152,6 @@ begin
   PlayerInput_UseItem.MakeClear(true);
   PlayerInput_DropItem.MakeClear(true);
   PlayerInput_CancelFlying.MakeClear(true);
-
-  OnCreatureExists := @TGame(nil).CreatureExists;
 end;
 
 const
@@ -236,6 +219,9 @@ end;
 procedure PlayUpdate(Window: TCastleWindow);
 const
   RegenerateSpeed = 1.8; // life points per second you gain
+  DistanceToActivateCreatures = 100.0;
+var
+  Creature: TCastleTransform;
 begin
   SceneManager.Exists := not Options;
   Game2DControls.Exists := not Options;
@@ -254,6 +240,12 @@ begin
       Player.Life + Window.Fps.SecondsPassed * RegenerateSpeed);
   end else
     TouchNavigation.TouchInterface := tiNone;
+
+  if not Options then
+    { optimize creature processing, don't process far creatures }
+    for Creature in SceneManager.LevelProperties.CreaturesRoot do
+      Creature.Exists := PointsDistanceSqr(Creature.Translation, Player.Translation) <=
+        Sqr(DistanceToActivateCreatures);
 end;
 
 end.
