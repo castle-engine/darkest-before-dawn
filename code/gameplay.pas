@@ -198,6 +198,10 @@ begin
 
   SceneManager.LoadLevel('1');
 
+  { TODO: for some reason, this is too bright with PhongShading.
+    Should investigate better why it happens. }
+  SceneManager.Items.MainScene.RenderOptions.PhongShading := false;
+
   { just for test, load 3D model without the CastleLevels stuff }
   // Window.Load('castle-data:/level/1/level1_final.x3dv');
   // Window.MainScene.Spatial := [ssRendering, ssDynamicCollisions];
