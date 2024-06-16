@@ -2,23 +2,9 @@
 
 A scary 3D game. You're only safe within the light.
 
-Using Castle Game Engine ( http://castle-engine.sourceforge.net/ ). This was the first game using Castle Game Engine for Android!
+Game information: https://castle-engine.io/darkest_before_dawn.php .
 
-See http://castle-engine.sourceforge.net/darkest_before_dawn.php .
-
-## Compiling
-
-- Download Castle Game Engine
-  http://castle-engine.sourceforge.net/engine.php
-
-- Install the build tool of Castle Game Engine, see
-  https://castle-engine.io/build_tool .
-
-  Basically, you compile a "castle-engine" program, and place it on $PATH.
-  And you set the environment variable $CASTLE_ENGINE_PATH to the directory
-  that contains (as a child) castle_game_engine/ directory.
-
-- Compile by simple "make" in this directory.
+Using [Castle Game Engine](https://castle-engine.io/). This was the first game using Castle Game Engine for Android!
 
 ## License
 
