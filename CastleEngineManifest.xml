@@ -29,7 +29,6 @@
       <service name="google_play_games">
         <parameter key="app_id" value="1020561970941" />
       </service>
-      <service name="heyzap" />
     </services>
   </android>
 </project>
