@@ -50,6 +50,13 @@ jobs:
           path: "*-linux-x86_64.tar.gz"
           if-no-files-found: error
 
+      - name: Unpack Android Secrets
+        env: # Set environment variables for the next steps
+          ANDROID_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE }}
+          ANDROID_SIGNING_PROPERTIES: ${{ secrets.ANDROID_SIGNING_PROPERTIES }}
+        run: |
+          echo "$ANDROID_KEYSTORE" | base64 --decode > cge.keystore
+          echo "$ANDROID_SIGNING_PROPERTIES" > AndroidSigningProperties.txt
       - name: Package Android
         run: castle-engine package --target=android --verbose
       - name: Archive Artifacts
