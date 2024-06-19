@@ -56,7 +56,7 @@ jobs:
           ANDROID_SIGNING_PROPERTIES: ${{ secrets.ANDROID_SIGNING_PROPERTIES }}
         run: |
           echo "$ANDROID_KEYSTORE" | base64 --decode > cge.keystore
-          echo "$ANDROID_SIGNING_PROPERTIES" > AndroidSigningProperties.txt
+          echo "$ANDROID_SIGNING_PROPERTIES" | sed -e "s|WORKSPACE|${GITHUB_WORKSPACE}|" - > AndroidSigningProperties.txt
       - name: Package Android
         run: castle-engine package --target=android --verbose
       - name: Archive Artifacts
