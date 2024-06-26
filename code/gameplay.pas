@@ -209,6 +209,8 @@ begin
 
   { SceneManager.LoadLevel always initializes Navigation, always to TCastleWalkNavigation }
   Walk := SceneManager.Navigation as TCastleWalkNavigation;
+  // do not walk on drag, it would be too easy to accidentally walk wrong, e.g. step off elevator
+  Walk.MouseDragMode := mdRotate;
   Walk.MouseDraggingHorizontalRotationSpeed := TCastleWalkNavigation.DefaultMouseDraggingHorizontalRotationSpeed * 3;
   Walk.MouseDraggingVerticalRotationSpeed := 0;
   Player.EnableNavigationDragging := true;
