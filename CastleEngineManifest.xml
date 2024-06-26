@@ -23,7 +23,7 @@
     <include path="README.txt" />
     <include path="COPYING.GPL2.txt" />
   </package>
-  <android project_type="integrated">
+  <android>
     <services>
       <service name="google_play_services" />
       <service name="google_play_games">
