@@ -59,7 +59,6 @@ begin
   Progress.UserInterface := WindowProgressInterface;
 
   { adjust theme }
-  Theme.ImagesPersistent[tiProgressFill].Url := 'castle-data:/ui/theme/ProgressFill.png';
   Theme.ImagesPersistent[tiButtonPressed].Url := 'castle-data:/ui/theme/ButtonPressed.png';
   Theme.ImagesPersistent[tiButtonFocused].Url := 'castle-data:/ui/theme/ButtonFocused.png';
   Theme.ImagesPersistent[tiButtonNormal].Url := 'castle-data:/ui/theme/ButtonNormal.png';
