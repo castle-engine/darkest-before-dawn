@@ -6,7 +6,7 @@
   standalone_source="darkest_before_dawn_standalone.dpr"
   game_units="Game"
   screen_orientation="landscape">
-  <version value="2.0.0" code="14" />
+  <version value="2.2" code="15" />
   <launch_images>
     <image path="store-graphics/ios-launch-iphone-portrait.png" />
     <image path="store-graphics/ios-launch-ipad-landspace.png" />
