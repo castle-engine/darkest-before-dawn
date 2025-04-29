@@ -85,7 +85,7 @@ procedure TLevel1.TElevator.Update;
 var
   PlayerInside: boolean;
 begin
-  PlayerInside := Scene.BoundingBox.Contains2D(Player.Translation, 1);
+  PlayerInside := Scene.BoundingBox.Contains2D(ViewPlay.Player.Translation, 1);
   if Moving.CompletelyBeginPosition and PlayerInside then
   begin
     Moving.GoEndPosition;
@@ -100,7 +100,7 @@ begin
   if PlayerInside and
      (not Moving.CompletelyEndPosition) and
      (not Moving.CompletelyBeginPosition) then
-    GoingUp := true;
+    ViewPlay.GoingUp := true;
 end;
 
 { TLevel1 -------------------------------------------------------------------- }
@@ -156,11 +156,11 @@ const
   DistanceToDanger = 8.0;
 begin
   inherited;
-  if Player = nil then Exit; // paranoia, TODO: check, possibly not needed
+  if ViewPlay.Player = nil then Exit; // paranoia, TODO: check, possibly not needed
   for E in Elevators do
     E.Update;
 
-  PlayerPos := Player.Translation;
+  PlayerPos := ViewPlay.Player.Translation;
 
   { calculate and use distance to the nearest light source }
 
@@ -179,11 +179,11 @@ begin
 
   if DistanceFactor < 0.5 then
   begin
-    ResourceHarpy.RunAwayLife := 10.0 { anything >= 1.0, to run always };
-    ResourceHarpy.RunAwayDistance := MapRange(DistanceFactor, 0.0, 0.5,
+    ViewPlay.ResourceHarpy.RunAwayLife := 10.0 { anything >= 1.0, to run always };
+    ViewPlay.ResourceHarpy.RunAwayDistance := MapRange(DistanceFactor, 0.0, 0.5,
       100, 10);
   end else
-    ResourceHarpy.RunAwayLife := 0.0 { never run };
+    ViewPlay.ResourceHarpy.RunAwayLife := 0.0 { never run };
 
   { calculate and use "morning", which shows player progress on skybox }
   Projected := PointOnLineClosestToPoint(MorningEmpty, MorningFull, PlayerPos);
@@ -194,10 +194,10 @@ begin
 
   if GameWinBox.Contains(PlayerPos) then
   begin
-    if not GameWin then
+    if not ViewPlay.GameWin then
     begin
       GooglePlayGames.Achievement(AchievementWin);
-      GameWin := true;
+      ViewPlay.GameWin := true;
     end;
   end;
 end;

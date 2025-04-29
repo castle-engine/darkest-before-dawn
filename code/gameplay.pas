@@ -1,5 +1,5 @@
 {
-  Copyright 2013-2022 Michalis Kamburelis.
+  Copyright 2013-2025 Michalis Kamburelis.
 
   This file is part of "Darkest Before Dawn".
 
@@ -16,129 +16,95 @@
 { Game playing logic (as opposed to logic in the options menu). }
 unit GamePlay;
 
-{ Should we use touch interface.
-  Note: do *not* base this on OpenGLES define, as
-  1. final programs should not include castleconf.inc file,
-  2. generally OpenGLES usage is not related to whether platform uses
-     touch input (it only so happens that *right now*, by default,
-     only Android and iOS use OpenGLES and only they have touch input).
-     Making it orthogonal allows to e.g. test TOUCH_INTERFACE with normal
-     desktop OpenGL rendering. }
-{ $define TOUCH_INTERFACE} // useful to test TOUCH_INTERFACE on desktops
-{$ifdef ANDROID} {$define TOUCH_INTERFACE} {$endif}
-{$ifdef iOS}     {$define TOUCH_INTERFACE} {$endif}
-
 interface
 
-uses CastleWindow, CastlePlayer, CastleLevels, CastleCreatures,
-  CastleViewport;
+uses Classes,
+  CastlePlayer, CastleLevels, CastleCreatures, CastleViewport, CastleUiControls,
+  CastleControls;
+
+type
+  TViewPlay = class(TCastleView)
+  private
+    SceneManager: TGameSceneManager;
+    TouchNavigation: TCastleTouchNavigation;
+    RestartButton: TCastleButton;
+    procedure ClickRestart(Sender: TObject);
+  public
+    Player: TPlayer;
+    GameWin: boolean;
+    GoingUp: boolean; // set by level logic
+    ResourceHarpy: TWalkAttackCreatureResource;
+    constructor Create(AOwner: TComponent); override;
+    procedure Start; override;
+    procedure Update(const SecondsPassed: Single; var HandleInput: boolean); override;
+    procedure RenderOverChildren; override;
+  end;
 
 var
-  SceneManager: TGameSceneManager; //< same thing as Window.SceneManager
-  Player: TPlayer; //< same thing as Window.SceneManager.Player
-  ResourceHarpy: TWalkAttackCreatureResource;
-  GameWin: boolean;
-  GoingUp: boolean; // set by level logic
-
-procedure PlayInitialize(Window: TCastleWindow);
-
-{ Called every frame. Do continous game logic, e.g. do regeneration.
-  Update Exists state of our GUI, based on GameOptions.Options value. }
-procedure PlayUpdate(Window: TCastleWindow);
-
-{ Resize GUI to current window size. }
-procedure PlayResize(Window: TCastleWindow);
-
-procedure GameStart;
+  ViewPlay: TViewPlay;
 
 implementation
 
 uses SysUtils, Math,
-  CastleControls, CastleUIControls, CastleVectors,
+  CastleVectors,
   CastleColors, CastleFilesUtils, CastleLog, CastleSceneCore, CastleImages,
   CastleResources, CastleGLUtils, CastleUtils, CastleRectangles, CastleCameras,
   CastleSceneManager, X3DLoad, CastleGLImages, GameOptions, CastleTransform,
-  Game, GameAds,
+  CastleApplicationProperties,
+  Game,
   GameLevels { use, to run GameLevels initialization, to register level logic };
 
 var
   GoingUpImage: TCastleImageControl;
 
-{ TGame2DControls ------------------------------------------------------------ }
-
 const
   UIMargin = 10;
 
-type
-  TGame2DControls = class(TCastleUserInterface)
-  public
-    procedure Render; override;
-  end;
+{ TViewPlay --------------------------------------------------------------- }
 
-procedure TGame2DControls.Render;
-var
-  R: TRectangle;
+constructor TViewPlay.Create(AOwner: TComponent);
 begin
-  if Player.Dead then
-    GLFadeRectangleDark(ParentRect, Red, 1.0)
-  else
-    GLFadeRectangleDark(ParentRect, Player.FadeOutColor, Player.FadeOutIntensity);
+  inherited;
 
-  R := Rectangle(UIMargin, UIMargin, 40, 100);
-  DrawRectangle(R.Grow(2), Vector4(1.0, 0.5, 0.5, 0.2));
-  if not Player.Dead then
-  begin
-    R.Height := Clamped(Round(
-      MapRange(Player.Life, 0, Player.MaxLife, 0, R.Height)), 0, R.Height);
-    DrawRectangle(R, Vector4(1, 0, 0, 0.9));
-  end;
-end;
-
-var
-  Game2DControls: TGame2DControls;
-
-{ restart button ------------------------------------------------------------- }
-
-type
-  TRestartButton = class(TCastleButton)
-  public
-    procedure DoClick; override;
-  end;
-
-procedure TRestartButton.DoClick;
-const
-  AdChance = 0.5;
-begin
-  Start(true);
-  if Random < AdChance then
-    AdShowFullScreen;
-end;
-
-var
-  RestartButton: TRestartButton;
-
-{ Play globals --------------------------------------------------------------- }
-
-procedure PlayInitialize(Window: TCastleWindow);
-begin
-  //Resources.LoadFromFiles; // cannot search recursively in Android assets
+  // old engine could not search recursively in Android assets, though we can now
+  //Resources.LoadFromFiles;
   Resources.AddFromFile('castle-data:/creatures/light/resource.xml');
   ResourceHarpy := Resources.FindName('Harpy') as TWalkAttackCreatureResource;
 
-  //Levels.LoadFromFiles; // cannot search recursively in Android assets
+  // old engine could not search recursively in Android assets, though we can now
+  //Levels.LoadFromFiles;
   Levels.AddFromFile('castle-data:/level/1/level.xml');
+end;
 
-  RestartButton := TRestartButton.Create(Application);
+procedure TViewPlay.Start;
+var
+  Walk: TCastleWalkNavigation;
+begin
+  inherited;
+
+  SceneManager := TGameSceneManager.Create(FreeAtStop);
+  SceneManager.FullSize := true;
+  InsertFront(SceneManager);
+
+  TouchNavigation := TCastleTouchNavigation.Create(FreeAtStop);
+  // TouchNavigation.AutoTouchInterface := true; // leave false, GamePlay adjusts TouchNavigation.TouchInterface
+  TouchNavigation.Viewport := SceneManager;
+  TouchNavigation.FullSize := true;
+  SceneManager.InsertFront(TouchNavigation);
+
+  RestartButton := TCastleButton.Create(FreeAtStop);
   RestartButton.Caption := '';
   RestartButton.Image.URL := 'castle-data:/ui/restart.png';
-  Window.Controls.InsertFront(RestartButton);
+  RestartButton.Anchor(hpMiddle);
+  RestartButton.Anchor(vpMiddle);
+  RestartButton.OnClick := {$ifdef FPC}@{$endif} ClickRestart;
+  InsertFront(RestartButton);
 
-  Game2DControls := TGame2DControls.Create(Application);
-  Window.Controls.InsertFront(Game2DControls);
-
-  GoingUpImage := TCastleImageControl.Create(Application);
+  GoingUpImage := TCastleImageControl.Create(FreeAtStop);
   GoingUpImage.URL := 'castle-data:/ui/going_up.png';
-  Window.Controls.InsertFront(GoingUpImage);
+  GoingUpImage.Anchor(hpMiddle);
+  GoingUpImage.Anchor(vpMiddle);
+  InsertFront(GoingUpImage);
 
   { Disable some default input shortcuts defined by CastleSceneManager.
     They will not do anything if we don't use the related functionality
@@ -152,21 +118,7 @@ begin
   PlayerInput_UseItem.MakeClear(true);
   PlayerInput_DropItem.MakeClear(true);
   PlayerInput_CancelFlying.MakeClear(true);
-end;
 
-const
-  AliveTouchInterface =
-    {$ifdef TOUCH_INTERFACE} tiWalk; {$else} tiNone; {$endif}
-    { tiNone;
-      For this game, tiNone is too troublesome, as you often mistakenly
-      do walk/rotate when you want to do only the other thing.
-      It's important here, as accidental movement moves you away from light,
-      which has (deadly) gameplay consequences :) }
-
-procedure GameStart;
-var
-  Walk: TCastleWalkNavigation;
-begin
   GameWin := false;
 
   { really reload, to apply new Quality setting }
@@ -191,8 +143,6 @@ begin
     else raise EInternalError.Create('quality?');
   end;
 
-  if Player <> nil then
-    FreeAndNil(Player); // SceneManager references will be cleared automatically
   Player := TPlayer.Create(SceneManager);
   SceneManager.Player := Player;
 
@@ -216,42 +166,83 @@ begin
   Player.EnableNavigationDragging := true;
 end;
 
-procedure PlayResize(Window: TCastleWindow);
-begin
-  RestartButton.Center;
-  GoingUpImage.Center;
-end;
+procedure TViewPlay.Update(const SecondsPassed: Single; var HandleInput: boolean);
 
-procedure PlayUpdate(Window: TCastleWindow);
+  function AliveTouchInterface: TTouchInterface;
+  begin
+    if ApplicationProperties.TouchDevice then
+      Result := tiWalk
+    else
+      Result := tiNone;
+
+    { For this game, moving too easy by accident is too troublesome,
+      as you often mistakenly
+      do walk/rotate when you want to do only the other thing.
+      It's important here, as accidental movement moves you away from light,
+      which has (deadly) gameplay consequences :) }
+  end;
+
 const
   RegenerateSpeed = 1.8; // life points per second you gain
   DistanceToActivateCreatures = 100.0;
 var
   Creature: TCastleTransform;
 begin
-  SceneManager.Exists := not Options;
-  Game2DControls.Exists := not Options;
+  inherited;
 
-  RestartButton.Exists := (not Options) and (Player.Dead or GameWin);
+  RestartButton.Exists := Player.Dead or GameWin;
 
-  GoingUpImage.Exists := (not Options) and (not RestartButton.Exists) and GoingUp;
+  GoingUpImage.Exists := (not RestartButton.Exists) and GoingUp;
   { Reset GoingUp every frame. If we're still GoingUp, it will be set again
     to true before next check above. }
   GoingUp := false;
 
-  if (not Options) and (not Player.Dead) then
+  if not Player.Dead then
   begin
     TouchNavigation.TouchInterface := AliveTouchInterface;
     Player.Life := Min(Player.MaxLife,
-      Player.Life + Window.Fps.SecondsPassed * RegenerateSpeed);
+      Player.Life + Container.Fps.SecondsPassed * RegenerateSpeed);
   end else
     TouchNavigation.TouchInterface := tiNone;
 
-  if not Options then
-    { optimize creature processing, don't process far creatures }
-    for Creature in SceneManager.LevelProperties.CreaturesRoot do
-      Creature.Exists := PointsDistanceSqr(Creature.Translation, Player.Translation) <=
-        Sqr(DistanceToActivateCreatures);
+  { optimize creature processing, don't process far creatures }
+  for Creature in SceneManager.LevelProperties.CreaturesRoot do
+    Creature.Exists := PointsDistanceSqr(Creature.Translation, Player.Translation) <=
+      Sqr(DistanceToActivateCreatures);
+end;
+
+procedure TViewPlay.RenderOverChildren;
+var
+  R: TRectangle;
+begin
+  inherited;
+
+  if Player.Dead then
+    GLFadeRectangleDark(ParentRect, Red, 1.0)
+  else
+    GLFadeRectangleDark(ParentRect, Player.FadeOutColor, Player.FadeOutIntensity);
+
+  R := Rectangle(UIMargin, UIMargin, 40, 100);
+  DrawRectangle(R.Grow(2), Vector4(1.0, 0.5, 0.5, 0.2));
+  if not Player.Dead then
+  begin
+    R.Height := Clamped(Round(
+      MapRange(Player.Life, 0, Player.MaxLife, 0, R.Height)), 0, R.Height);
+    DrawRectangle(R, Vector4(1, 0, 0, 0.9));
+  end;
+end;
+
+procedure TViewPlay.ClickRestart(Sender: TObject);
+var
+  SavedContainer: TCastleContainer;
+begin
+  { Restart TViewPlay.
+    Stop us, then start us, by assigning to Container.View first nil, then Self.
+    Note that we have to save Container to SavedContainer,
+    because after stopping, the Container changes to nil. }
+  SavedContainer := Container;
+  Container.View := nil;
+  SavedContainer.View := Self;
 end;
 
 end.

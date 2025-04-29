@@ -1,5 +1,5 @@
 {
-  Copyright 2013-2017 Michalis Kamburelis.
+  Copyright 2013-2025 Michalis Kamburelis.
 
   This file is part of "Darkest Before Dawn".
 
@@ -18,20 +18,23 @@ unit GameOptions;
 
 interface
 
-uses CastleWindow;
+uses Classes,
+  CastleUiControls, CastleControls;
+
+type
+  TViewOptions = class(TCastleView)
+  private
+    QualityTitle, GammaTitle: TCastleImageControl;
+    PlayButton: TCastleButton;
+    procedure ClickPlay(Sender: TObject);
+  public
+    constructor Create(AOwner: TComponent); override;
+    procedure Start; override;
+    procedure Resize; override;
+  end;
 
 var
-  Options: boolean;
-
-{ Create options GUI. }
-procedure OptionsInitialize(Window: TCastleWindow);
-
-{ Called every frame.
-  Update Exists state of options GUI, based on Options value. }
-procedure OptionsUpdate(Window: TCastleWindow);
-
-{ Resize options GUI to current window sizes. }
-procedure OptionsResize(Window: TCastleWindow);
+  ViewOptions: TViewOptions;
 
 type
   TQuality = (qBeautiful, qAverage, qFastest);
@@ -53,24 +56,9 @@ var
 
 implementation
 
-uses SysUtils, Classes, CastleControls, CastleUIControls, CastleImages,
-  CastleFilesUtils, CastleConfig, Game;
-
-{ Play button ---------------------------------------------------------------- }
-
-type
-  TPlayButton = class(TCastleButton)
-  public
-    procedure DoClick; override;
-  end;
-
-procedure TPlayButton.DoClick;
-begin
-  Start(false);
-end;
-
-var
-  PlayButton: TPlayButton;
+uses SysUtils, CastleImages,
+  CastleFilesUtils, CastleConfig,
+  Game, GamePlay;
 
 { Quality -------------------------------------------------------------------- }
 
@@ -140,13 +128,14 @@ begin
     B.Pressed := B = Self;
 end;
 
-{ Options globals ------------------------------------------------------------ }
+{ TViewOptions -------------------------------------------------------------- }
 
-var
-  OptionsControls: TCastleUserInterfaceList;
-  QualityTitle, GammaTitle: TCastleImageControl;
+constructor TViewOptions.Create(AOwner: TComponent);
+begin
+  inherited;
+end;
 
-procedure OptionsInitialize(Window: TCastleWindow);
+procedure TViewOptions.Start;
 var
   Q: TQuality;
   QB: TQualityButton;
@@ -154,70 +143,53 @@ var
   GB: TGammaButton;
   Background: TCastleImageControl;
 begin
-  OptionsControls := TCastleUserInterfaceList.Create(false);
+  inherited;
 
-  Background := TCastleImageControl.Create(Application);
+  Background := TCastleImageControl.Create(FreeAtStop);
   Background.URL := 'castle-data:/ui/options_bg.png';
   Background.Stretch := true;
   Background.FullSize := true;
-  Window.Controls.InsertFront(Background);
-  OptionsControls.InsertFront(Background);
+  InsertFront(Background);
 
-  PlayButton := TPlayButton.Create(Application);
+  PlayButton := TCastleButton.Create(FreeAtStop);
   PlayButton.Image.URL := 'castle-data:/ui/play.png';
-  Window.Controls.InsertFront(PlayButton);
-  OptionsControls.InsertFront(PlayButton);
+  PlayButton.OnClick := {$ifdef FPC}@{$endif} ClickPlay;
+  InsertFront(PlayButton);
 
-  QualityTitle := TCastleImageControl.Create(Application);
+  QualityTitle := TCastleImageControl.Create(FreeAtStop);
   QualityTitle.URL := 'castle-data:/ui/quality_title.png';
-  Window.Controls.InsertFront(QualityTitle);
-  OptionsControls.InsertFront(QualityTitle);
+  InsertFront(QualityTitle);
 
   for Q in TQuality do
   begin
-    QB := TQualityButton.Create(Application);
+    QB := TQualityButton.Create(FreeAtStop);
     QB.Value := Q;
     QB.Pressed := Q = Quality;
     QB.Image.URL := 'castle-data:/ui/quality_' + QualityNames[Q] + '.png';
     QB.ImageMargin := 0;
 
-    Window.Controls.InsertFront(QB);
+    InsertFront(QB);
     TQualityButton.Buttons[Q] := QB;
-    OptionsControls.InsertFront(QB);
   end;
 
-  GammaTitle := TCastleImageControl.Create(Application);
+  GammaTitle := TCastleImageControl.Create(FreeAtStop);
   GammaTitle.URL := 'castle-data:/ui/gamma_title.png';
-  Window.Controls.InsertFront(GammaTitle);
-  OptionsControls.InsertFront(GammaTitle);
+  InsertFront(GammaTitle);
 
   for G in TGamma do
   begin
-    GB := TGammaButton.Create(Application);
+    GB := TGammaButton.Create(FreeAtStop);
     GB.Value := G;
     GB.Pressed := G = Gamma;
     GB.Image.URL := 'castle-data:/ui/gamma_' + GammaNames[G] + '.png';
     GB.ImageMargin := 0;
 
-    Window.Controls.InsertFront(GB);
+    InsertFront(GB);
     TGammaButton.Buttons[G] := GB;
-    OptionsControls.InsertFront(GB);
   end;
 end;
 
-procedure OptionsUpdate(Window: TCastleWindow);
-var
-  I: Integer;
-  C: TCastleUserInterface;
-begin
-  for I := 0 to OptionsControls.Count - 1 do
-  begin
-    C := OptionsControls[I];
-    C.Exists := Options;
-  end;
-end;
-
-procedure OptionsResize(Window: TCastleWindow);
+procedure TViewOptions.Resize;
 const
   Margin = 8;
 var
@@ -226,17 +198,19 @@ var
   QB: TQualityButton;
   GB: TGammaButton;
 begin
+  inherited;
+
   OptionsHeight := QualityTitle.EffectiveHeight + Margin * 2;
   for QB in TQualityButton.Buttons do
     OptionsHeight += QB.EffectiveHeight + Margin;
   OptionsHeight += PlayButton.EffectiveHeight;
 
-  CurrentBottom := (Window.Height + OptionsHeight) / 2;
+  CurrentBottom := (Container.PixelsHeight + OptionsHeight) / 2;
 
   OptionsWidth :=
     TQualityButton.Buttons[qAverage].EffectiveWidth + Margin * 2 +
     TGammaButton.Buttons[gAverage].EffectiveWidth;
-  QualityLeft := (Window.Width - OptionsWidth) / 2;
+  QualityLeft := (Container.PixelsWidth - OptionsWidth) / 2;
   GammaLeft := QualityLeft + TQualityButton.Buttons[qAverage].EffectiveWidth + Margin * 2;
 
   CurrentBottom -= PlayButton.EffectiveHeight;
@@ -270,6 +244,9 @@ begin
   end;
 end;
 
-finalization
-  FreeAndNil(OptionsControls);
+procedure TViewOptions.ClickPlay(Sender: TObject);
+begin
+  Container.View := ViewPlay;
+end;
+
 end.
