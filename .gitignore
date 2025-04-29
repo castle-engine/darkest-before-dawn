@@ -5,6 +5,7 @@
 darkest_before_dawn
 darkest_before_dawn_standalone
 *.apk
+*.aab
 castle-engine-output
 
 AndroidSigningProperties.txt
