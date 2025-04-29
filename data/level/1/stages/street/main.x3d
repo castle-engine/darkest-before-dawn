@@ -48,31 +48,6 @@
 				</Group>
 			</Transform>
 		</Transform>
-		<Transform DEF="MorningFull_TRANSFORM"
-		           translation="-3.158099 8.718965 70.841103"
-		           scale="-0.659434 -0.659434 -30.919035"
-		           rotation="-0.870197 -0.348394 -0.348394 1.709386"
-		           >
-			<Transform DEF="MorningFull_ifs_TRANSFORM"
-			           translation="-0.000003 -0.000001 -0.000000"
-			           scale="1.000000 1.000000 1.000000"
-			           rotation="0.000000 0.000000 0.000000 0.000000"
-			           >
-				<Group DEF="group_ME_Cube_029">
-					<Shape>
-						<Appearance>
-						</Appearance>
-						<IndexedFaceSet solid="false"
-						                coordIndex="1 0 4 5 -1 5 6 2 1 -1 6 7 3 2 -1 0 3 7 4 -1 0 1 2 3 -1 7 6 5 4 -1 "
-						                >
-							<Coordinate DEF="coords_ME_Cube_029"
-							            point="-1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 -1.000000 1.000000 -1.000000 -1.000000 -1.000000 -1.000000 1.000000 -1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 -1.000000 1.000000 "
-							            />
-						</IndexedFaceSet>
-					</Shape>
-				</Group>
-			</Transform>
-		</Transform>
 		<Transform DEF="CasResHarpy_012_TRANSFORM"
 		           translation="4.661175 5.843679 68.985031"
 		           scale="0.659434 0.659434 0.659434"
